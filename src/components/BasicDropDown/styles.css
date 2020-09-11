@@ -1,0 +1,8 @@
+.BasicDropDown .dropdown-menu, .BasicDropDown .dropdown-item {
+  background-color: var(--quinaryColor);
+  color: var(--secondaryColor) !important;
+}
+
+.BasicDropDownToggle {
+  width: 100%;
+}

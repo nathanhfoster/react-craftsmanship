@@ -1,0 +1,12 @@
+.BasicTableHeader {
+  vertical-align: middle;
+}
+
+.HeaderHoverable:hover {
+  cursor: pointer;
+  background-color: var(--quinaryColor);
+}
+
+.TableHeaderSortInput {
+  min-height: 20px !important;
+}
