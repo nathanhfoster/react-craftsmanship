@@ -1,14 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row, Col, Form } from 'reactstrap';
 import { ReduxBasicForm, ReduxBasicInput } from 'containers';
-import { handleOnFormChange } from 'redux/Form/actions';
 import { getFormFieldName } from 'redux/Form/utils';
 import { EMPTY_ARRAY_OF_INPUT_FIELDS } from 'redux/Form/utils';
-
-const mapStateToProps = ({ Form }) => ({ Form });
-
-const mapDispatchToProps = { handleOnFormChange };
 
 const RENDER_REDUX_BASIC_INPUTS = EMPTY_ARRAY_OF_INPUT_FIELDS.map(
   (type, index) => {
@@ -30,17 +24,16 @@ const App = () => {
         React Form Memoziation
       </Row>
       <Row>
-        <Col xs={6} className='p-0'>
+        <Col xs={6}>
           <ReduxBasicForm />
         </Col>
-        <Col xs={6} className='p-0'>
-          {RENDER_REDUX_BASIC_INPUTS}
+        <Col xs={6}>
+          <h2 className="text-center">Redux</h2>
+          <Form>{RENDER_REDUX_BASIC_INPUTS}</Form>
         </Col>
       </Row>
     </Container>
   );
 };
 
-App.propTypes = {};
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

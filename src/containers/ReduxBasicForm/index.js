@@ -1,19 +1,19 @@
-import React, { useCallback } from 'react';
-import { connect } from 'react-redux';
-import { BasicForm } from 'components';
+import React, { useCallback } from 'react'
+import { connect } from 'react-redux'
+import { BasicForm } from 'components'
 import {
   SELECT_INPUT_OPTIONS,
   RANDOM_FORM_FIELD_TYPES_MAP,
-} from 'redux/Form/utils';
-import { handleOnFormChange } from 'redux/Form/actions';
-import { FormProps } from 'redux/Form/propTypes';
+} from 'redux/Form/utils'
+import { handleOnFormChange } from 'redux/Form/actions'
+import { FormProps } from 'redux/Form/propTypes'
 
-const mapStateToProps = ({ Forms: { form1 } }) => ({ form1 });
+const mapStateToProps = ({ Forms: { form1 } }) => ({ form1 })
 
-const mapDispatchToProps = { handleOnFormChange };
+const mapDispatchToProps = { handleOnFormChange }
 
 const ReduxBasicForm = ({ form1, handleOnFormChange }) => {
-  const handleOnChange = useCallback(e => handleOnFormChange('form1', e), []);
+  const handleOnChange = useCallback(e => handleOnFormChange('form1', e), [])
   const basicFormInputs = Object.entries(form1).map(([key, value]) => {
     return {
       name: key,
@@ -26,12 +26,19 @@ const ReduxBasicForm = ({ form1, handleOnFormChange }) => {
       //   console.log(
       //     'This returns a new function reference in memory every time which breaks prop inequality',
       //   ),
-    };
-  });
+    }
+  })
 
-  return <BasicForm inputs={basicFormInputs} onChange={handleOnChange} />;
-};
+  return (
+    <BasicForm
+      title='BasicForm'
+      inputs={basicFormInputs}
+      onChange={handleOnChange}
+      onSubmit={() => console.log('dsf')}
+    />
+  )
+}
 
-ReduxBasicForm.propTypes = { form1: FormProps };
+ReduxBasicForm.propTypes = { form1: FormProps }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ReduxBasicForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ReduxBasicForm)

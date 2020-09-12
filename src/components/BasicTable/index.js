@@ -8,7 +8,7 @@ import { ContextProvider } from 'store';
 
 const BasicTableProvider = ({ data, ...propsUsedToDeriveContextValue }) => (
   <ContextProvider
-    rootReducer={BasicTableReducer}
+    reducers={BasicTableReducer}
     initialState={propsUsedToDeriveContextValue}
     initializer={getInitialState}
   >
