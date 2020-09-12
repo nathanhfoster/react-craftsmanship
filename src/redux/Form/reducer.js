@@ -1,32 +1,29 @@
-import { FormActionTypes } from './types'
-import {
-  NUMBER_OF_INPUT_FIELDS,
-  EMPTY_ARRAY_OF_INPUT_FIELDS,
-  getFormFieldName,
-} from './utils'
+import { FormActionTypes } from './types';
+import { getRandomFields } from './utils';
+
+const formFields = getRandomFields()
 
 // Object of 50 input fields
-const DEFAULT_STATE_FORM = EMPTY_ARRAY_OF_INPUT_FIELDS.reduce(
-  (defaultState, field, index) => {
-    const name = getFormFieldName(index)
-    defaultState[name] = ''
-    return defaultState
-  },
-  {},
-)
+const DEFAULT_STATE_FORMS = {
+  form1: formFields,
+  form2: formFields,
+};
 
-const Form = (state = DEFAULT_STATE_FORM, action) => {
-  const { type, id, payload } = action
+const Forms = (state = DEFAULT_STATE_FORMS, action) => {
+  const { type, formKey, fieldKey, payload } = action;
   switch (type) {
     case FormActionTypes.FORM_ON_CHANGE:
       return {
         ...state,
-        [id]: payload,
-      }
+        [formKey]: {
+          ...state[formKey],
+          [fieldKey]: payload,
+        },
+      };
 
     default:
-      return state
+      return state;
   }
-}
+};
 
-export { DEFAULT_STATE_FORM, Form }
+export { DEFAULT_STATE_FORMS, Forms };

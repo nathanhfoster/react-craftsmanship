@@ -1,9 +1,10 @@
 import { FormActionTypes } from './types';
 
 // Destructure event.target
-const handleOnFormChange = ({ target: { name, value, checked } }) => ({
+const handleOnFormChange = (formKey, { target: { name, value, checked } }) => ({
   type: FormActionTypes.FORM_ON_CHANGE,
-  id: name,
+  formKey,
+  fieldKey: name,
   payload: checked || value,
 });
 

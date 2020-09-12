@@ -1,7 +1,7 @@
-import { DEFAULT_STATE_FORM, Form } from './Form/reducer';
+import { DEFAULT_STATE_FORMS, Forms } from './Form/reducer';
 
 const reducers = {
-  Form,
+  Forms,
 };
 
-export { reducers, DEFAULT_STATE_FORM };
+export { reducers, DEFAULT_STATE_FORMS };
