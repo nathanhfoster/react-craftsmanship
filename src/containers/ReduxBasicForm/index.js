@@ -34,7 +34,6 @@ const ReduxBasicForm = ({ form1, handleOnFormChange }) => {
       title='BasicForm'
       inputs={basicFormInputs}
       onChange={handleOnChange}
-      onSubmit={() => console.log('dsf')}
     />
   )
 }
