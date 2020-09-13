@@ -14,24 +14,22 @@ const mapDispatchToProps = { handleOnFormChange }
 
 const ReduxBasicForm = ({ form1, handleOnFormChange }) => {
   const handleOnChange = useCallback(e => handleOnFormChange('form1', e), [])
-  const basicFormInputs = Object.entries(form1).map(([key, value]) => {
-    return {
-      name: key,
-      type: RANDOM_FORM_FIELD_TYPES_MAP[key],
-      options: SELECT_INPUT_OPTIONS,
-      label: key.toUpperCase(),
-      placeholder: `...${key}`,
-      value,
-      // propReferenceInequality: () =>
-      //   console.log(
-      //     'This returns a new function reference in memory every time which breaks prop inequality',
-      //   ),
-    }
-  })
+  const basicFormInputs = Object.entries(form1).map(([key, value]) => ({
+    name: key,
+    type: RANDOM_FORM_FIELD_TYPES_MAP[key],
+    options: SELECT_INPUT_OPTIONS,
+    label: key.toUpperCase(),
+    placeholder: `...${key}`,
+    value,
+    // propReferenceInequality: () =>
+    //   console.log(
+    //     'This returns a new function reference in memory every time which breaks prop inequality',
+    //   ),
+  }))
 
   return (
     <BasicForm
-      title='BasicForm'
+      title='useState'
       inputs={basicFormInputs}
       onChange={handleOnChange}
     />

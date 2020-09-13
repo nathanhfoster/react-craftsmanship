@@ -1,7 +1,7 @@
-import React, { useMemo, memo, Fragment } from 'react'
-import { InputProps } from './propTypes'
-import { FormGroup, Label, Input, FormFeedback, FormText } from 'reactstrap'
-import BasicOption from '../BasicOption'
+import React, { useMemo, memo, Fragment } from 'react';
+import { InputProps } from './propTypes';
+import { FormGroup, Label, Input, FormFeedback, FormText } from 'reactstrap';
+import BasicOption from '../BasicOption';
 
 const BasicInput = ({
   id,
@@ -29,16 +29,14 @@ const BasicInput = ({
   ...restOfProps
 }) => {
   // console.log(name, ' rendered')
-  const isCheckOrRadio = type === 'checkbox' || type === 'radio'
+  const isCheckOrRadio = type === 'checkbox' || type === 'radio';
 
   const valid =
-    restOfProps.valid || (typeof isValid === 'function' && isValid(value))
+    restOfProps.valid || (typeof isValid === 'function' && isValid(value));
 
   const invalid =
     restOfProps.invalid ||
-    (typeof isInvalid === 'function' && isInvalid(value))
-
-  const renderLabel = `${label} ${required ? '*' : ''}`
+    (typeof isInvalid === 'function' && isInvalid(value));
 
   const renderOptions = useMemo(
     () =>
@@ -48,7 +46,7 @@ const BasicInput = ({
           ))
         : undefined,
     [options, type],
-  )
+  );
 
   const renderInput = useMemo(
     () => (
@@ -68,24 +66,30 @@ const BasicInput = ({
       </Input>
     ),
     [value, renderOptions, disabled, valid, invalid, type, placeholder],
-  )
+  );
+
+  const renderLabel = useMemo(() => {
+    const labelText = `${label} ${required ? '*' : ''}`;
+
+    return isCheckOrRadio ? (
+      <Label check={isCheckOrRadio} for={name}>
+        {renderInput} {labelText}
+      </Label>
+    ) : (
+      <Fragment>
+        {label && (
+          <Label check={isCheckOrRadio} for={name}>
+            {labelText}
+          </Label>
+        )}
+        {renderInput}
+      </Fragment>
+    );
+  }, [renderInput, label, required, name]);
 
   return (
     <FormGroup check={isCheckOrRadio} row={row}>
-      {isCheckOrRadio ? (
-        <Label check={isCheckOrRadio} for={name}>
-          {renderInput} {renderLabel}
-        </Label>
-      ) : (
-        <Fragment>
-          {label && (
-            <Label check={isCheckOrRadio} for={name}>
-              {renderLabel}
-            </Label>
-          )}
-          {renderInput}
-        </Fragment>
-      )}
+      {renderLabel}
       {typeof valid === 'string' && (
         <FormFeedback valid={!valid}>{valid}</FormFeedback>
       )}
@@ -94,9 +98,9 @@ const BasicInput = ({
       )}
       {helpText && <FormText>{helpText}</FormText>}
     </FormGroup>
-  )
-}
+  );
+};
 
-BasicInput.propTypes = InputProps
+BasicInput.propTypes = InputProps;
 
-export default memo(BasicInput)
+export default memo(BasicInput);
