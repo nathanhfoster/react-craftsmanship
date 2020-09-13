@@ -71,7 +71,7 @@ const BasicForm = ({
       {renderInputs}
       {onSubmit && (
         <div className='text-center'>
-          <Button color='accent' type='submit'>
+          <Button color='primary' type='submit'>
             {submitLabel}
           </Button>
         </div>
