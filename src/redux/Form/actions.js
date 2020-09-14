@@ -1,5 +1,10 @@
 import { FormActionTypes } from './types';
 
+const setNumberOfInputFields = payload => ({
+  type: FormActionTypes.FORM_SET_NUMBER_OF_INPUT_FIELDS,
+  payload,
+});
+
 // Destructure event.target
 const handleOnFormChange = (formKey, { target: { name, value, checked } }) => ({
   type: FormActionTypes.FORM_ON_CHANGE,
@@ -8,4 +13,4 @@ const handleOnFormChange = (formKey, { target: { name, value, checked } }) => ({
   payload: checked || value,
 });
 
-export { handleOnFormChange };
+export { setNumberOfInputFields, handleOnFormChange };

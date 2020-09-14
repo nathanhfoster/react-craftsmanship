@@ -3,15 +3,16 @@ import { InputTypes } from '../../components/BasicInput/propTypes';
 
 const getFormFieldName = index => `field-${index}`;
 
-const NUMBER_OF_INPUT_FIELDS = 500;
+const DEFAULT_NUMBER_OF_INPUT_FIELDS = 5;
 
-const EMPTY_ARRAY_OF_INPUT_FIELDS = new Array(NUMBER_OF_INPUT_FIELDS).fill();
+const getEmptyArrayOfInputs = (size = DEFAULT_NUMBER_OF_INPUT_FIELDS) =>
+  new Array(size).fill();
 
-const SELECT_INPUT_OPTIONS = EMPTY_ARRAY_OF_INPUT_FIELDS.map((field, i) => ({
+const SELECT_INPUT_OPTIONS = getEmptyArrayOfInputs().map((field, i) => ({
   name: i,
 }));
 
-const RANDOM_FORM_FIELD_TYPES_MAP = EMPTY_ARRAY_OF_INPUT_FIELDS.reduce(
+const RANDOM_FORM_FIELD_TYPES_MAP = getEmptyArrayOfInputs().reduce(
   (typeMap, field, index) => {
     const randomTypeIndex = getRandomInt(0, InputTypes.length - 1);
     const name = getFormFieldName(index);
@@ -24,8 +25,8 @@ const RANDOM_FORM_FIELD_TYPES_MAP = EMPTY_ARRAY_OF_INPUT_FIELDS.reduce(
   {},
 );
 
-const getRandomFields = () =>
-  EMPTY_ARRAY_OF_INPUT_FIELDS.reduce((defaultState, field, index) => {
+const getRandomFields = (size = DEFAULT_NUMBER_OF_INPUT_FIELDS) =>
+  getEmptyArrayOfInputs(size).reduce((defaultState, field, index) => {
     const name = getFormFieldName(index);
     defaultState[name] = '';
     return defaultState;
@@ -34,8 +35,8 @@ const getRandomFields = () =>
 export {
   getFormFieldName,
   getRandomFields,
-  NUMBER_OF_INPUT_FIELDS,
-  EMPTY_ARRAY_OF_INPUT_FIELDS,
+  DEFAULT_NUMBER_OF_INPUT_FIELDS,
+  getEmptyArrayOfInputs,
   SELECT_INPUT_OPTIONS,
   RANDOM_FORM_FIELD_TYPES_MAP,
 };
