@@ -3,25 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { BasicDropDown } from 'components';
 import { setNumberOfInputFields } from '../../redux/Form/actions';
+import { NUMBER_OF_INPUT_OPTIONS } from '../../redux/Form/utils';
 
-const NUMBER_OF_INPUT_OPTIONS = [
-  5,
-  15,
-  25,
-  50,
-  75,
-  100,
-  150,
-  200,
-  250,
-  350,
-  500,
-  1000,
-  2000,
-  3000,
-  4000,
-  5000,
-].map(o => ({ id: o }));
+const OPTIONS = NUMBER_OF_INPUT_OPTIONS.map(o => ({ id: o }));
 
 const mapStateToProps = ({ Forms: { numberOfInputFields } }) => ({
   numberOfInputFields,
@@ -40,7 +24,7 @@ const ReduxSetNumberOfFields = ({
 
   return (
     <BasicDropDown
-      options={NUMBER_OF_INPUT_OPTIONS}
+      options={OPTIONS}
       onChange={handleSetNumberOfInputFields}
       value={numberOfInputFields}
     />
