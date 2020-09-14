@@ -5,10 +5,14 @@ const getFormFieldName = index => `field-${index}`;
 
 const DEFAULT_NUMBER_OF_INPUT_FIELDS = 5;
 
+const DEFAULT_NUMBER_OF_INPUT_OPTIONS = 100;
+
 const getEmptyArrayOfInputs = (size = DEFAULT_NUMBER_OF_INPUT_FIELDS) =>
   new Array(size).fill();
 
-const SELECT_INPUT_OPTIONS = getEmptyArrayOfInputs().map((field, i) => ({
+const SELECT_INPUT_OPTIONS = getEmptyArrayOfInputs(
+  DEFAULT_NUMBER_OF_INPUT_OPTIONS,
+).map((field, i) => ({
   name: i,
 }));
 
