@@ -17,6 +17,10 @@ const NUMBER_OF_INPUT_OPTIONS = [
   350,
   500,
   1000,
+  2000,
+  3000,
+  4000,
+  5000,
 ].map(o => ({ id: o }));
 
 const mapStateToProps = ({ Forms: { numberOfInputFields } }) => ({

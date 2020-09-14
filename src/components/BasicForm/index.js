@@ -1,8 +1,8 @@
-import React, { useState, useMemo, useCallback, memo } from 'react'
-import { Button, Form } from 'reactstrap'
-import { getFormPayload } from './utils'
-import { BasicFormProps } from './propTypes'
-import BasicInput from '../BasicInput'
+import React, { useState, useMemo, useCallback, memo } from 'react';
+import { Button, Form } from 'reactstrap';
+import { getFormPayload } from './utils';
+import { BasicFormProps } from './propTypes';
+import BasicInput from '../BasicInput';
 
 const BasicForm = ({
   title,
@@ -12,42 +12,52 @@ const BasicForm = ({
   onSubmit,
   onChange,
 }) => {
-  const [state, setState] = useState(inputs)
+  const [state, setState] = useState(inputs);
 
   const handleSubmit = e => {
-    e.preventDefault()
-    if (!onSubmit) return
+    e.preventDefault();
+    if (!onSubmit) return;
 
-    const payload = getFormPayload(state)
+    const payload = getFormPayload(state);
 
-    onSubmit(payload)
-  }
+    onSubmit(payload);
+  };
 
   const handleChange = useCallback(event => {
     if (onChange) {
-      onChange(event)
+      onChange(event);
     } else {
       const {
         target: { id, name, value, type, checked, files },
-      } = event
+      } = event;
 
       setState(prevState =>
         prevState.map(input => {
           if (input.name === name) {
             if (type === 'radio' || type === 'checkbox') {
-              return { ...input, checked }
+              return { ...input, checked };
             } else if (type === 'file') {
-              return { ...input, files }
+              return { ...input, files };
             } else {
-              return { ...input, value }
+              return { ...input, value };
             }
           } else {
-            return input
+            return input;
           }
         }),
-      )
+      );
     }
-  }, [])
+  }, []);
+
+  const renderTitle = useMemo(
+    () =>
+      !title ? undefined : typeof title === 'object' ? (
+        title
+      ) : (
+        <h2 className='text-center'>{title}</h2>
+      ),
+    [title],
+  );
 
   const renderInputs = useMemo(
     () =>
@@ -59,15 +69,11 @@ const BasicForm = ({
         />
       )),
     [onChange, inputs, state, handleChange],
-  )
+  );
 
   return (
     <Form onSubmit={handleSubmit} method={method}>
-      {!title ? undefined : typeof title === 'object' ? (
-        title
-      ) : (
-        <h2 className='text-center'>{title}</h2>
-      )}
+      {renderTitle}
       {renderInputs}
       {onSubmit && (
         <div className='text-center'>
@@ -77,10 +83,10 @@ const BasicForm = ({
         </div>
       )}
     </Form>
-  )
-}
+  );
+};
 
-BasicForm.propTypes = BasicFormProps
+BasicForm.propTypes = BasicFormProps;
 
 BasicForm.defaultProps = {
   inputs: [
@@ -111,5 +117,5 @@ BasicForm.defaultProps = {
   ],
   submitLabel: 'Submit',
   method: 'post',
-}
-export default memo(BasicForm)
+};
+export default memo(BasicForm);
