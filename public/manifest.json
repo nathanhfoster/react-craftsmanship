@@ -1,6 +1,10 @@
 {
-  "short_name": "React Craftsmanship",
   "name": "React Craftsmanship",
+  "short_name": "React Craftsmanship",
+  "description": "Visualize the performance benefits of redux",
+  "author": "Nathan Foster",
+
+  "keywords": ["react", "redux", "pwa", "free", "memo"],
   "icons": [
     {
       "src": "favicon.ico",
@@ -18,8 +22,10 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": ".",
-  "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "background_color": "#ffffff",
+  "start_url": ".",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait"
 }
