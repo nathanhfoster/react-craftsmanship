@@ -25,19 +25,28 @@ const App = () => {
           >
             React Developer Tools
           </a>{' '}
-          to visiualize the rerenders of the form input fields
+          to visiualize the rerenders of the two forms and their input fields
         </Col>
       </Row>
       <Row className='my-3'>
-        <Col className='d-inline-flex'>
-          <ReduxSetNumberOfFields />
-          <label className='ml-1'>Number of input fields</label>
+        <Col>
+          <div className='d-inline-flex'>
+            <ReduxSetNumberOfFields />
+            <label className='ml-1'>Number of input fields</label>
+          </div>
+          <div className='text-info'>
+            Notice how the <span className='text-success'>Form with useState</span> struggles with
+            hundreds of fields without memoization
+          </div>
         </Col>
+
         <Col>
           <ReduxMemoizedComponents />
-          <span className='text-info mx-1'>
+          <span className='text-info'>
             Notice how this helps the <span className='text-success'>Form with useState</span> for
-            hundreds of fields but not when there is thousands
+            hundreds of fields but not when there is thousands. It doesn't really effect the{' '}
+            <span className='text-success'>Form with redux</span> because each field is atomic and
+            isolated from one another
           </span>
         </Col>
       </Row>
