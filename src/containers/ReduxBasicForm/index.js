@@ -1,13 +1,17 @@
 import React, { useCallback } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { BasicForm } from 'components';
 import { SELECT_INPUT_OPTIONS } from 'redux/Form/utils';
 import { handleOnFormChange } from 'redux/Form/actions';
 import { FormProps } from 'redux/Form/propTypes';
 
-const mapStateToProps = ({ Forms: { form1, randFormFieldTypesMap } }) => ({
+const mapStateToProps = ({
+  Forms: { form1, randFormFieldTypesMap, shouldMemoizeInputFields },
+}) => ({
   form1,
   randFormFieldTypesMap,
+  shouldMemoizeInputFields,
 });
 
 const mapDispatchToProps = { handleOnFormChange };
@@ -15,6 +19,7 @@ const mapDispatchToProps = { handleOnFormChange };
 const ReduxBasicForm = ({
   form1,
   randFormFieldTypesMap,
+  shouldMemoizeInputFields,
   handleOnFormChange,
 }) => {
   const handleOnChange = useCallback(e => handleOnFormChange('form1', e), []);
@@ -38,13 +43,18 @@ const ReduxBasicForm = ({
 
   return (
     <BasicForm
-      title='useState'
+      shouldMemoizeInputFields={shouldMemoizeInputFields}
       inputs={basicFormInputs}
       onChange={handleOnChange}
     />
   );
 };
 
-ReduxBasicForm.propTypes = { form1: FormProps };
+ReduxBasicForm.propTypes = {
+  form1: FormProps,
+  randFormFieldTypesMap: PropTypes.objectOf(PropTypes.string),
+  shouldMemoizeInputFields: PropTypes.bool.isRequired,
+  handleOnFormChange: PropTypes.func.isRequired,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReduxBasicForm);

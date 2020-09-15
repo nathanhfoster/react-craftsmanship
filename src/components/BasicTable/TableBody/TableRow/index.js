@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo, memo, Fragment } from 'react';
+import React, { useState, useCallback, useMemo, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import TableDataCell from './TableDataCell';
 import { Collapse } from 'reactstrap';
@@ -27,11 +27,7 @@ const TableRow = ({ getRowValue, onRowClick, item, columns }) => {
   const { key, render } = firstColumn;
   const itemValue = item[key];
   const title =
-    typeof render === isType.STRING
-      ? render
-      : typeof itemValue === isType.STRING
-      ? itemValue
-      : '';
+    typeof render === isType.STRING ? render : typeof itemValue === isType.STRING ? itemValue : '';
 
   const renderRestOfColumns = useMemo(
     () =>
@@ -78,4 +74,4 @@ TableRow.propTypes = {
   columns: ColumnsPropType,
 };
 
-export default connect(mapStateToProps)(memo(TableRow));
+export default connect(mapStateToProps)(TableRow);

@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Table from './Table';
 import { getInitialState, BasicTableReducer } from './state/reducer';
@@ -98,4 +98,4 @@ BasicTableProvider.defaultProps = {
       }),
   ),
 };
-export default memo(BasicTableProvider);
+export default (BasicTableProvider);

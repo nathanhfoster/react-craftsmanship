@@ -1,4 +1,4 @@
-import React, { useMemo, memo } from 'react';
+import React, { useMemo } from 'react';
 import { DataPropType, ColumnsPropType } from '../state/types';
 import { connect } from 'store';
 import './styles.css';
@@ -37,4 +37,4 @@ TableFooters.propTypes = {
   columns: ColumnsPropType,
 };
 
-export default connect(mapStateToProps)(memo(TableFooters));
+export default connect(mapStateToProps)((TableFooters));

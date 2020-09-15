@@ -1,4 +1,4 @@
-import React, { useMemo, memo, lazy, Fragment } from 'react';
+import React, { useMemo, lazy, Fragment } from 'react';
 import { connect } from 'store';
 import PropTypes from 'prop-types';
 import { Table } from 'reactstrap';
@@ -51,10 +51,10 @@ const BasicTable = ({
 }) => {
   const sortedData = useMemo(() => tableSort(data, sortList), [data, sortList]);
 
-  const sortedAndFilteredData = useMemo(
-    () => tableFilter(sortedData, filterList),
-    [sortedData, filterList],
-  );
+  const sortedAndFilteredData = useMemo(() => tableFilter(sortedData, filterList), [
+    sortedData,
+    filterList,
+  ]);
 
   const dataLength = useMemo(() => (sortedAndFilteredData || data).length, [
     sortedAndFilteredData,
@@ -107,11 +107,7 @@ BasicTable.propTypes = {
   pageSize: PropTypes.number.isRequired,
   pageSizes: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
   // Custom ref handler that will be assigned to the "ref" of the inner <table> element
-  innerRef: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.string,
-    PropTypes.object,
-  ]),
+  innerRef: PropTypes.oneOfType([PropTypes.func, PropTypes.string, PropTypes.object]),
 };
 
 BasicTable.defaultProps = {
@@ -119,4 +115,4 @@ BasicTable.defaultProps = {
   pageSizes: [5, 15, 25, 50, 100],
 };
 
-export default connect(mapStateToProps)(memo(BasicTable));
+export default connect(mapStateToProps)(BasicTable);

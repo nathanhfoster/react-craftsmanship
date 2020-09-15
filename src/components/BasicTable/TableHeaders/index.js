@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, memo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'store';
 import { ColumnsPropType, SortListPropType } from '../state/types';
@@ -110,4 +110,4 @@ TableHeaders.propTypes = {
   sortList: SortListPropType,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(memo(TableHeaders));
+export default connect(mapStateToProps, mapDispatchToProps)(TableHeaders);

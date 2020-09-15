@@ -1,4 +1,4 @@
-import React, { useMemo, memo } from "react"
+import React, { useMemo } from "react"
 import PropTypes from "prop-types"
 import { Card, CardHeader, CardText, CardBody, CardTitle } from "reactstrap"
 import "./styles.css"
@@ -107,4 +107,4 @@ BasicCard.defaultProps = {
   cardTextClassName: "",
 }
 
-export default memo(BasicCard)
+export default (BasicCard)

@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, memo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { Container, Row, Col, Button } from 'reactstrap';
 import BasicDropDown from '../../BasicDropDown';
 import PropTypes from 'prop-types';
@@ -25,10 +25,7 @@ const TablePaginator = ({
   basicTableSetPage,
   basicTableSetPageSize,
 }) => {
-  const totalPages = useMemo(() => Math.ceil(dataLength / pageSize), [
-    dataLength,
-    pageSize,
-  ]);
+  const totalPages = useMemo(() => Math.ceil(dataLength / pageSize), [dataLength, pageSize]);
 
   const pageList = useMemo(
     () =>
@@ -44,15 +41,9 @@ const TablePaginator = ({
 
   const navigateBack = () => basicTableSetPage(currentPage - 1);
 
-  const navigateWithDropDown = useCallback(
-    (id, value) => basicTableSetPage(value - 1),
-    [],
-  );
+  const navigateWithDropDown = useCallback((id, value) => basicTableSetPage(value - 1), []);
 
-  const handleSetPageSize = useCallback(
-    (id, value) => basicTableSetPageSize(value),
-    [],
-  );
+  const handleSetPageSize = useCallback((id, value) => basicTableSetPageSize(value), []);
 
   const navigateForward = () => basicTableSetPage(currentPage + 1);
 
@@ -127,11 +118,7 @@ TablePaginator.propTypes = {
   pageSizes: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      value: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number,
-        PropTypes.node,
-      ]),
+      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.node]),
       otherValue: PropTypes.any,
       header: PropTypes.bool,
       disabled: PropTypes.bool,
@@ -140,7 +127,4 @@ TablePaginator.propTypes = {
   ),
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(memo(TablePaginator));
+export default connect(mapStateToProps, mapDispatchToProps)(TablePaginator);

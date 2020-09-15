@@ -1,4 +1,4 @@
-import React, { useState, useMemo, memo } from 'react';
+import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import {
   Dropdown,
@@ -143,4 +143,4 @@ BasicDropDown.defaultProps = {
   value: 'value',
 };
 
-export default memo(BasicDropDown);
+export default (BasicDropDown);

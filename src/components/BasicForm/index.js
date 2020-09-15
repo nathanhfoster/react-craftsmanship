@@ -1,10 +1,12 @@
-import React, { useState, useMemo, useCallback, memo } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { Button, Form } from 'reactstrap';
 import { getFormPayload } from './utils';
 import { BasicFormProps } from './propTypes';
+import { MemoizedComponent } from 'components';
 import BasicInput from '../BasicInput';
 
 const BasicForm = ({
+  shouldMemoizeInputFields,
   title,
   inputs,
   submitLabel,
@@ -61,14 +63,19 @@ const BasicForm = ({
 
   const renderInputs = useMemo(
     () =>
-      (onChange ? inputs : state).map((input, i) => (
-        <BasicInput
-          key={`${input.name}-${i}`}
-          {...input}
-          onChange={handleChange}
-        />
-      )),
-    [onChange, inputs, state, handleChange],
+      (onChange ? inputs : state).map((input, i) =>
+        shouldMemoizeInputFields ? (
+          <MemoizedComponent
+            Component={BasicInput}
+            key={`${input.name}-${i}`}
+            {...input}
+            onChange={handleChange}
+          />
+        ) : (
+          <BasicInput key={`${input.name}-${i}`} {...input} onChange={handleChange} />
+        ),
+      ),
+    [shouldMemoizeInputFields, onChange, inputs, state, handleChange],
   );
 
   return (
@@ -89,6 +96,7 @@ const BasicForm = ({
 BasicForm.propTypes = BasicFormProps;
 
 BasicForm.defaultProps = {
+  shouldMemoizeInputFields: false,
   inputs: [
     {
       label: 'Username',
@@ -118,4 +126,4 @@ BasicForm.defaultProps = {
   submitLabel: 'Submit',
   method: 'post',
 };
-export default memo(BasicForm);
+export default BasicForm;

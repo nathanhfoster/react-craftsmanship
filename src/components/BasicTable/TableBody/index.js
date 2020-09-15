@@ -1,39 +1,24 @@
-import React, { useRef, useMemo, memo } from 'react';
+import React, { useRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { DataPropType, ColumnsPropType } from '../state/types';
 import TableRow from './TableRow';
 import TableDataCell from './TableRow/TableDataCell';
 import { connect } from 'store';
 
-const mapStateToProps = ({
-  currentPage,
-  pageSize,
-  dataDisplayName,
-  columns,
-}) => ({
+const mapStateToProps = ({ currentPage, pageSize, dataDisplayName, columns }) => ({
   currentPage,
   pageSize,
   dataDisplayName,
   colSpan: columns.length,
 });
 
-const TableBody = ({
-  data,
-  currentPage,
-  pageSize,
-  dataDisplayName,
-  colSpan,
-}) => {
+const TableBody = ({ data, currentPage, pageSize, dataDisplayName, colSpan }) => {
   const bodyRef = useRef();
   const sliceStart = currentPage * pageSize;
 
   const sliceEnd = sliceStart + pageSize;
 
-  const slicedData = useMemo(() => data.slice(sliceStart, sliceEnd), [
-    data,
-    sliceStart,
-    sliceEnd,
-  ]);
+  const slicedData = useMemo(() => data.slice(sliceStart, sliceEnd), [data, sliceStart, sliceEnd]);
 
   let renderTableRows = useMemo(
     () => slicedData.map((item, i) => <TableRow key={i} item={item} />),
@@ -41,9 +26,7 @@ const TableBody = ({
   );
 
   const renderNoDataRows = useMemo(() => {
-    const empyRowHeight = bodyRef.current
-      ? bodyRef.current.clientHeight / pageSize
-      : 40;
+    const empyRowHeight = bodyRef.current ? bodyRef.current.clientHeight / pageSize : 40;
 
     const rowDifference = pageSize - slicedData.length;
     const isARowDifference = rowDifference !== pageSize;
@@ -93,4 +76,4 @@ TableBody.propTypes = {
   colSpan: PropTypes.number,
 };
 
-export default connect(mapStateToProps)(memo(TableBody));
+export default connect(mapStateToProps)(TableBody);

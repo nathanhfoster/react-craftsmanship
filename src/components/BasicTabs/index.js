@@ -1,53 +1,44 @@
-import React, { useState, useEffect, useRef, useMemo, memo } from "react"
-import PropTypes from "prop-types"
-import {
-  Container,
-  Row,
-  Col,
-  Nav,
-  NavItem,
-  NavLink,
-  TabContent,
-  TabPane,
-} from "reactstrap"
-import { useSwipeable } from "react-swipeable"
-import "./styles.css"
+import React, { useState, useEffect, useRef, useMemo } from 'react';
+import PropTypes from 'prop-types';
+import { Container, Row, Col, Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
+import { useSwipeable } from 'react-swipeable';
+import './styles.css';
 
 const getInitialState = (activeTab, defaultTab, tabs) => {
-  let firstTabId = null
+  let firstTabId = null;
 
   if (tabs.length > 0) {
-    firstTabId = tabs[0].tabId
+    firstTabId = tabs[0].tabId;
   }
 
-  return defaultTab || activeTab || firstTabId
-}
+  return defaultTab || activeTab || firstTabId;
+};
 
 const BasicTabs = ({ className, defaultTab, fluid, tabs, ...restOfProps }) => {
   const [activeTab, setActiveTab] = useState(
-    getInitialState(restOfProps.activeTab, defaultTab, tabs)
-  )
+    getInitialState(restOfProps.activeTab, defaultTab, tabs),
+  );
 
-  const mounted = useRef()
+  const mounted = useRef();
 
   useEffect(() => {
     if (!mounted.current) {
-      mounted.current = true
+      mounted.current = true;
     } else {
-      setActiveTab(restOfProps.activeTab)
+      setActiveTab(restOfProps.activeTab);
     }
-  }, [restOfProps.activeTab])
+  }, [restOfProps.activeTab]);
 
-  const handleTabChanged = (activeTab) => setActiveTab(activeTab)
+  const handleTabChanged = activeTab => setActiveTab(activeTab);
 
   const { renderTabs, renderTabPanes, previousTab, nextTab } = useMemo(() => {
-    let tabsToRender = []
-    let tabPanesToRender = []
-    let previousTab = null
-    let nextTab = null
+    let tabsToRender = [];
+    let tabPanesToRender = [];
+    let previousTab = null;
+    let nextTab = null;
 
     for (let i = 0, { length } = tabs; i < length; i++) {
-      const tab = tabs[i]
+      const tab = tabs[i];
       const {
         tabId,
         title,
@@ -55,40 +46,37 @@ const BasicTabs = ({ className, defaultTab, fluid, tabs, ...restOfProps }) => {
         render,
         mountTabOnlyWhenActive = true,
         className,
-      } = tab
+      } = tab;
 
-      const onTab = activeTab === tabId
-      const titleIsObject = Boolean(typeof title === 'object')
+      const onTab = activeTab === tabId;
+      const titleIsObject = Boolean(typeof title === 'object');
 
       // For react-swipeable
       if (onTab) {
-        const hasPreviousIndex = !previousTab && i > 0
-        const hasNextIndex = !nextTab && i + 1 < length
+        const hasPreviousIndex = !previousTab && i > 0;
+        const hasNextIndex = !nextTab && i + 1 < length;
 
         if (hasPreviousIndex) {
-          previousTab = tabs[i - 1].tabId
+          previousTab = tabs[i - 1].tabId;
         }
 
         if (hasNextIndex) {
-          nextTab = tabs[i + 1].tabId
+          nextTab = tabs[i + 1].tabId;
         }
       }
 
       tabsToRender.push(
         <NavItem key={tabId} title={titleIsObject ? title.name : title}>
           <NavLink
-            className={`BasicTabsNavLink py-2 px-3 ${onTab ? "active" : ""}`}
-            onClick={() =>
-              onClickCallback ? onClickCallback(tabId) : handleTabChanged(tabId)
-            }
+            className={`BasicTabsNavLink py-2 px-3 ${onTab ? 'active' : ''}`}
+            onClick={() => (onClickCallback ? onClickCallback(tabId) : handleTabChanged(tabId))}
           >
             {titleIsObject ? title.render : title}
           </NavLink>
-        </NavItem>
-      )
+        </NavItem>,
+      );
 
-      const shouldNotRenderTabPane =
-        mountTabOnlyWhenActive === true && activeTab !== tabId
+      const shouldNotRenderTabPane = mountTabOnlyWhenActive === true && activeTab !== tabId;
 
       tabPanesToRender.push(
         <TabContent key={tabId} activeTab={activeTab}>
@@ -97,8 +85,8 @@ const BasicTabs = ({ className, defaultTab, fluid, tabs, ...restOfProps }) => {
               {render}
             </TabPane>
           )}
-        </TabContent>
-      )
+        </TabContent>,
+      );
     }
 
     return {
@@ -106,8 +94,8 @@ const BasicTabs = ({ className, defaultTab, fluid, tabs, ...restOfProps }) => {
       renderTabPanes: tabPanesToRender,
       previousTab,
       nextTab,
-    }
-  }, [activeTab, tabs])
+    };
+  }, [activeTab, tabs]);
 
   const handlers = useSwipeable({
     onSwipedLeft: () => handleTabChanged(nextTab),
@@ -116,7 +104,7 @@ const BasicTabs = ({ className, defaultTab, fluid, tabs, ...restOfProps }) => {
     trackTouch: true,
     trackMouse: false,
     delta: 128,
-  })
+  });
 
   return (
     <Container className={`${className} Container`} fluid={fluid}>
@@ -130,16 +118,15 @@ const BasicTabs = ({ className, defaultTab, fluid, tabs, ...restOfProps }) => {
 
       {renderTabPanes}
     </Container>
-  )
-}
+  );
+};
 
 BasicTabs.propTypes = {
   className: PropTypes.string,
   defaultTab: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   tabs: PropTypes.arrayOf(
     PropTypes.shape({
-      tabId: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
-        .isRequired,
+      tabId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
       mountTabOnlyWhenActive: PropTypes.bool,
       title: PropTypes.oneOfType([
         PropTypes.string.isRequired,
@@ -147,21 +134,21 @@ BasicTabs.propTypes = {
       ]),
       render: PropTypes.node.isRequired,
       onClickCallback: PropTypes.func,
-    }).isRequired
+    }).isRequired,
   ),
-}
+};
 
 BasicTabs.defaultProps = {
-  className: "BasicTabs",
+  className: 'BasicTabs',
   fluid: false,
-  tabs: new Array(3).fill().map((i) => {
-    const index = i + 1
+  tabs: new Array(3).fill().map(i => {
+    const index = i + 1;
     return {
       tabId: index,
       title: `${index}`,
       render: <div>`Tab ${index}`</div>,
-    }
+    };
   }),
-}
+};
 
-export default memo(BasicTabs)
+export default BasicTabs;

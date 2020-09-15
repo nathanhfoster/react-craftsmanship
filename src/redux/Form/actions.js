@@ -5,6 +5,10 @@ const setNumberOfInputFields = payload => ({
   payload,
 });
 
+const toggleShouldMemoizeInputFields = () => ({
+  type: FormActionTypes.FORM_TOGGLE_SHOW_MEMOIZED_COMPONENTS,
+});
+
 // Destructure event.target
 const handleOnFormChange = (formKey, { target: { name, value, checked } }) => ({
   type: FormActionTypes.FORM_ON_CHANGE,
@@ -13,4 +17,4 @@ const handleOnFormChange = (formKey, { target: { name, value, checked } }) => ({
   payload: checked || value,
 });
 
-export { setNumberOfInputFields, handleOnFormChange };
+export { setNumberOfInputFields, toggleShouldMemoizeInputFields, handleOnFormChange };

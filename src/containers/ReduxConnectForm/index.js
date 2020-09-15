@@ -1,26 +1,51 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Form } from 'reactstrap';
-import { ReduxBasicInput } from 'components';
-import { getFormFieldName } from 'redux/Form/utils';
-import { getEmptyArrayOfInputs } from 'redux/Form/utils';
+import { ReduxBasicInput, MemoizedComponent } from 'components';
 
 // useSelector and the equality function if fields are not known.
+// we want to implement this because we don't want to rerender when a field in form2 changes
+// we only want this component to rerender when the length of the fieldKeys change or we want memoize our input fields
 const isEqual = (nextSelection, prevSelection) => {
-  const areEqualLength = prevSelection.length === nextSelection.length;
-  return areEqualLength;
+  const {
+    shouldMemoizeInputFields: prevShouldMemoizeInputFields,
+    renderInputs: prevRenderInputs,
+  } = prevSelection;
+
+  const {
+    shouldMemoizeInputFields: nextShouldMemoizeInputFields,
+    renderInputs: nextRenderInputs,
+  } = nextSelection;
+
+  const shouldMemoizeInputFieldsAreEqual =
+    prevShouldMemoizeInputFields === nextShouldMemoizeInputFields;
+
+  const renderInputsAreEqual = prevRenderInputs.length === nextRenderInputs.length;
+
+  const isEqual = shouldMemoizeInputFieldsAreEqual && renderInputsAreEqual;
+
+  return isEqual;
 };
 
 const ReduxConnectForm = () => {
-  const renderInputs = useSelector(
-    ({ Forms: { form2 } }) =>
-      Object.keys(form2).map(fieldKey => (
-        <ReduxBasicInput
-          key={fieldKey}
-          reducerKey='form2'
-          fieldKey={fieldKey}
-        />
-      )),
+  // similar to the connect function but doesn;t not support memoization out of the box
+  // we implement our own equality function to reduce the times renderInputs is computed
+  const { renderInputs } = useSelector(
+    ({ Forms: { form2, shouldMemoizeInputFields } }) => ({
+      shouldMemoizeInputFields,
+      renderInputs: Object.keys(form2).map(fieldKey =>
+        shouldMemoizeInputFields ? (
+          <MemoizedComponent
+            Component={ReduxBasicInput}
+            key={fieldKey}
+            reducerKey='form2'
+            fieldKey={fieldKey}
+          />
+        ) : (
+          <ReduxBasicInput key={fieldKey} reducerKey='form2' fieldKey={fieldKey} />
+        ),
+      ),
+    }),
     isEqual,
   );
 

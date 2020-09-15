@@ -1,4 +1,4 @@
-import React, { useMemo, memo, Fragment } from 'react'
+import React, { useMemo, Fragment } from 'react'
 import { InputProps } from './propTypes'
 import { FormGroup, Label, Input, FormFeedback, FormText } from 'reactstrap'
 import BasicOption from '../BasicOption'
@@ -103,4 +103,4 @@ const BasicInput = ({
 
 BasicInput.propTypes = InputProps
 
-export default memo(BasicInput)
+export default (BasicInput)

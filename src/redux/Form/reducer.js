@@ -1,3 +1,4 @@
+import Form from "reactstrap/lib/Form";
 import { FormActionTypes } from './types';
 import {
   DEFAULT_NUMBER_OF_INPUT_FIELDS,
@@ -14,6 +15,7 @@ const DEFAULT_STATE_FORMS = {
   form1: formFields,
   form2: formFields,
   randFormFieldTypesMap,
+  shouldMemoizeInputFields: false
 };
 
 const Forms = (state = DEFAULT_STATE_FORMS, action) => {
@@ -29,6 +31,12 @@ const Forms = (state = DEFAULT_STATE_FORMS, action) => {
         form2: newFormFields,
         randFormFieldTypesMap: newRandFormFieldTypesMap,
       };
+
+      case FormActionTypes.FORM_TOGGLE_SHOW_MEMOIZED_COMPONENTS:
+        return {
+          ...state, 
+          shouldMemoizeInputFields: !state.shouldMemoizeInputFields
+        }
 
     case FormActionTypes.FORM_ON_CHANGE:
       return {
