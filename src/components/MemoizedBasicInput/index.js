@@ -1,6 +1,6 @@
-import React, { memo } from 'react';
-import BasicInput from '../BasicInput';
+import React, { memo } from "react"
+import BasicInput from "../BasicInput"
 
-const MemoizedBasicInput = props => <BasicInput {...props} />;
+const MemoizedBasicInput = (props) => <BasicInput {...props} />
 
-export default memo(MemoizedBasicInput);
+export default memo(MemoizedBasicInput)

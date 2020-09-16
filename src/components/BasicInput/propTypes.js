@@ -1,14 +1,14 @@
-import PropTypes from 'prop-types'
-import { optionProps } from '../BasicOption/propTypes'
+import PropTypes from "prop-types"
+import { optionProps } from "../BasicOption/propTypes"
 
 const InputTypes = [
-  'email',
-  'text',
-  'password',
-  'checkbox',
-  'radio',
-  'file',
-  'select',
+  "email",
+  "text",
+  "password",
+  "checkbox",
+  "radio",
+  "file",
+  "select",
 ]
 
 const InputProps = {
