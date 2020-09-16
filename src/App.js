@@ -1,11 +1,11 @@
-import React from 'react';
-import { Container, Row, Col } from 'reactstrap';
+import React from 'react'
+import { Container, Row, Col } from 'reactstrap'
 import {
   ReduxSetNumberOfFields,
   ReduxBasicForm,
   ShouldMemoizeComponents,
   ReduxConnectForm,
-} from 'containers';
+} from 'containers'
 
 const App = () => {
   return (
@@ -22,17 +22,33 @@ const App = () => {
             className='ml-1'
             href='https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en'
             target='_blank'
+            rel='noopener noreferrer'
           >
             React Developer Tools
           </a>{' '}
           to visiualize the rerenders of the two forms and their input fields
-          <div>
-            Check out the source code on{' '}
-            <a href='https://github.com/strap8/react-craftsmanship' target='_blank'>
-              GitHub
-            </a>
-          </div>
         </Col>
+      </Row>
+      <Row tag='h4' className='justify-content-center'>
+        Check out the source code on{' '}
+        <a
+          href='https://github.com/strap8/react-craftsmanship'
+          target='_blank'
+          rel='noopener noreferrer'
+        >
+          GitHub
+        </a>
+      </Row>
+      <Row className='justify-content-center'>
+        <iframe
+          title='Visualize The Power Of Redux and Memoizationi In React'
+          width={560}
+          height={315}
+          src='https://www.youtube.com/embed/KypVn6vGFWg'
+          frameborder='0'
+          allow='accelerometer autoplay clipboard-write encrypted-media gyroscope picture-in-picture'
+          allowfullscreen
+        ></iframe>
       </Row>
       <Row className='my-3'>
         <Col>
@@ -71,7 +87,7 @@ const App = () => {
         </Col>
       </Row>
     </Container>
-  );
-};
+  )
+}
 
-export default App;
+export default App
