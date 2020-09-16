@@ -10,7 +10,7 @@ const mapStateToProps = ({ Forms: { shouldMemoizeInputFields } }) => ({
 
 const mapDispatchToProps = { toggleShouldMemoizeInputFields };
 
-const ReduxMemoizedComponents = ({ shouldMemoizeInputFields, toggleShouldMemoizeInputFields }) => {
+const ShouldMemoizeComponents = ({ shouldMemoizeInputFields, toggleShouldMemoizeInputFields }) => {
   const handleSetNumberOfInputFields = useCallback(() => toggleShouldMemoizeInputFields(), []);
 
   return (
@@ -24,9 +24,9 @@ const ReduxMemoizedComponents = ({ shouldMemoizeInputFields, toggleShouldMemoize
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ReduxMemoizedComponents);
+export default connect(mapStateToProps, mapDispatchToProps)(ShouldMemoizeComponents);
 
-ReduxMemoizedComponents.propTypes = {
+ShouldMemoizeComponents.propTypes = {
   shouldMemoizeInputFields: PropTypes.bool.isRequired,
   toggleShouldMemoizeInputFields: PropTypes.func.isRequired,
 };

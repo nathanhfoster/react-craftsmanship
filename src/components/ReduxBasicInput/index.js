@@ -7,15 +7,16 @@ import { handleOnFormChange } from 'redux/Form/actions';
 import { InputProps } from 'components/BasicInput/propTypes';
 
 // we are mapping into the values on individual input fields for atomicity
-const mapStateToProps = ({ Forms }, { reducerKey, fieldKey }) => {
+const mapStateToProps = ({ Forms }, { reducerKey, fieldKey, arrayOfInputFieldDepencies }) => {
   const type = Forms.randFormFieldTypesMap[fieldKey];
+  const value = Forms[reducerKey][fieldKey];
   return {
     name: fieldKey,
     type,
     options: type === 'select' ? SELECT_INPUT_OPTIONS : undefined,
     label: fieldKey.toUpperCase(),
     placeholder: `...${fieldKey}`,
-    value: Forms[reducerKey][fieldKey],
+    value,
   };
 };
 

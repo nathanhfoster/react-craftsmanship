@@ -3,7 +3,7 @@ import { Container, Row, Col } from 'reactstrap';
 import {
   ReduxSetNumberOfFields,
   ReduxBasicForm,
-  ReduxMemoizedComponents,
+  ShouldMemoizeComponents,
   ReduxConnectForm,
 } from 'containers';
 
@@ -41,7 +41,7 @@ const App = () => {
         </Col>
 
         <Col>
-          <ReduxMemoizedComponents />
+          <ShouldMemoizeComponents />
           <span className='text-info'>
             Notice how this helps the <span className='text-success'>Form with useState</span> for
             hundreds of fields but not when there is thousands. It doesn't really effect the{' '}
