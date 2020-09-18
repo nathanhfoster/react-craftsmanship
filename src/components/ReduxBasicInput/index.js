@@ -23,6 +23,7 @@ const mapStateToProps = ({ Forms }, { reducerKey, fieldKey, arrayOfInputFieldDep
 const mapDispatchToProps = { handleOnFormChange };
 
 const ReduxBasicInput = ({ handleOnFormChange, ...inputProps }) => {
+  console.log('ReduxBasicInput rendered');
   const handleOnChange = useCallback(e => handleOnFormChange('form2', e), []);
 
   return <BasicInput {...inputProps} onChange={handleOnChange} />;
