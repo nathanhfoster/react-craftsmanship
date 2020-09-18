@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { useContext } from '../hooks';
-import { usePrevious } from 'hooks';
+import { usePrevious, useContext } from '../hooks';
 import { ContextConsumer } from './';
-import { shallowEquals } from 'utils';
+import { shallowEquals } from '../utils';
 
 const bindActionCreator = (actionCreator, dispatch, state) => {
   const getState = () => state;
@@ -110,17 +109,19 @@ const connect = (mapStateToProps, mapDispatchToProps) =>
        */
       const { state, dispatch } = useContext(ContextConsumer);
 
+      // Memoize stateToProps
       const [stateToProps, setStateProps] = React.useState(
         getMapStateToProps(mapStateToProps, state, ownProps),
       );
 
-      // Memoize globalState
       const prevStateToProps = usePrevious(stateToProps);
 
       React.useLayoutEffect(() => {
-        const nextStateToProps = getMapStateToProps(mapStateToProps, state, ownProps);
-        if (!shallowEquals(prevStateToProps, nextStateToProps)) {
-          setStateProps(nextStateToProps);
+        if (prevStateToProps) {
+          const nextStateToProps = getMapStateToProps(mapStateToProps, state, ownProps);
+          if (!shallowEquals(prevStateToProps, nextStateToProps)) {
+            setStateProps(nextStateToProps);
+          }
         }
       }, [state]);
 

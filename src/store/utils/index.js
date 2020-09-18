@@ -1,39 +1,33 @@
-import actionTypes from "./actionTypes"
-import { combineReducers } from "./combineReducers"
-import isPlainObject from "./isPlainObject"
+import actionTypes from './actionTypes';
+import { combineReducers } from './combineReducers';
+import isPlainObject from './isPlainObject';
+import shallowEquals from './shallowEquals';
 
-const isAFunction = (object) =>
-  object instanceof Function || typeof object === "function"
+const isAFunction = object => object instanceof Function || typeof object === 'function';
 
-const isQuotaExceeded = (e) => {
-  let quotaExceeded = false
+const isQuotaExceeded = e => {
+  let quotaExceeded = false;
   if (e) {
     if (e.code) {
       switch (e.code) {
         case 22:
-          quotaExceeded = true
-          break
+          quotaExceeded = true;
+          break;
         case 1014:
           // Firefox
-          if (e.name == "NS_ERROR_DOM_QUOTA_REACHED") {
-            quotaExceeded = true
+          if (e.name == 'NS_ERROR_DOM_QUOTA_REACHED') {
+            quotaExceeded = true;
           }
-          break
+          break;
         default:
-          break
+          break;
       }
     } else if (e.number == -2147024882) {
       // Internet Explorer 8
-      quotaExceeded = true
+      quotaExceeded = true;
     }
   }
-  return quotaExceeded
-}
+  return quotaExceeded;
+};
 
-export {
-  actionTypes,
-  combineReducers,
-  isPlainObject,
-  isAFunction,
-  isQuotaExceeded,
-}
+export { actionTypes, combineReducers, isPlainObject, isAFunction, isQuotaExceeded, shallowEquals };

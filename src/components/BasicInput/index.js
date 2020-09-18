@@ -28,6 +28,7 @@ const BasicInput = ({
   options,
   ...restOfProps
 }) => {
+  console.log(`${name} rendered`);
   const isCheckOrRadio = type === "checkbox" || type === "radio"
 
   const valid =
