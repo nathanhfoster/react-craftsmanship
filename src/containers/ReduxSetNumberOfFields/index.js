@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { connect } from 'store';
 import { BasicDropDown } from 'components';
 import { setNumberOfInputFields } from '../../redux/Form/actions';
 import { NUMBER_OF_INPUT_OPTIONS } from '../../redux/Form/utils';

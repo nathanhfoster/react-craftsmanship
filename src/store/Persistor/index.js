@@ -1,8 +1,8 @@
-import { useEffect } from "react"
-import { connect } from ".."
-import { isQuotaExceeded, isAFunction } from "../utils"
+import { useEffect } from 'react'
+import { connect } from '..'
+import { isQuotaExceeded, isAFunction } from '../utils'
 
-const mapStateToProps = (state) => ({ state })
+const mapStateToProps = state => ({ state })
 
 const Persistor = ({ persistKey, debounce = 400, whenQuotaExceeds, state }) => {
   // persist storage if persistConfig exists
@@ -24,10 +24,7 @@ const Persistor = ({ persistKey, debounce = 400, whenQuotaExceeds, state }) => {
           localStorage.setItem(persistKey, stringifiedState)
         } catch (e) {
           if (isQuotaExceeded(e) && isAFunction(whenQuotaExceeds)) {
-            localStorage.setItem(
-              persistKey,
-              JSON.stringify(whenQuotaExceeds(state))
-            )
+            localStorage.setItem(persistKey, JSON.stringify(whenQuotaExceeds(state)))
           }
         }
       }, debounce)

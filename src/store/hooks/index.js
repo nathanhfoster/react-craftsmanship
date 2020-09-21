@@ -1,39 +1,39 @@
-import { useContext as reactUseContext, useState, useRef, useEffect, useLayoutEffect } from 'react';
-import { ContextConsumer } from '../provider';
-import { isAFunction } from '../utils';
+import { useContext as reactUseContext, useState, useRef, useEffect, useLayoutEffect } from 'react'
+import { ContextConsumer } from '../provider'
+import { isAFunction } from '../utils'
 
-const useContext = (context = ContextConsumer) => reactUseContext(context);
+const useContext = (context = ContextConsumer) => reactUseContext(context)
 
 const usePrevious = value => {
-  let ref = useRef();
+  let ref = useRef()
 
   useEffect(() => {
-    ref.current = value;
-  });
+    ref.current = value
+  })
 
-  return ref.current;
-};
+  return ref.current
+}
 
 const useSelector = (mapStateToProps, isEqual) => {
-  const { state } = useContext();
+  const { state } = useContext()
 
-  const [selector, setSelector] = useState(mapStateToProps(state));
+  const [selector, setSelector] = useState(mapStateToProps(state))
 
-  const previousSelector = usePrevious(selector);
+  const previousSelector = usePrevious(selector)
 
   useLayoutEffect(() => {
     if (previousSelector) {
-      const nextSelector = mapStateToProps(state);
-      const shouldUpdate = !isEqual(nextSelector, previousSelector);
+      const nextSelector = mapStateToProps(state)
+      const shouldUpdate = !isEqual(nextSelector, previousSelector)
       if (shouldUpdate) {
-        setSelector(nextSelector);
+        setSelector(nextSelector)
       }
     }
-  }, [state]);
+  }, [state])
 
-  return selector;
-};
+  return selector
+}
 
-const useDispatch = () => useContext().dispatch;
+const useDispatch = () => useContext().dispatch
 
-export { useSelector, useDispatch, useContext, usePrevious };
+export { useSelector, useDispatch, useContext, usePrevious }

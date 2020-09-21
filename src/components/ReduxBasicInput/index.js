@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { connect } from 'store';
 import { BasicInput } from 'components';
 import { SELECT_INPUT_OPTIONS } from 'redux/Form/utils';
 import { handleOnFormChange } from 'redux/Form/actions';

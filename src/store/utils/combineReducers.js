@@ -1,4 +1,4 @@
-import { isAFunction } from "./"
+import { isAFunction } from './'
 
 const combineReducers = (reducers, initialState) => {
   // If a single reducer
@@ -67,7 +67,7 @@ const combineReducers = (reducers, initialState) => {
     for (const [key, reducer] of Object.entries(reducers)) {
       if (isAFunction(reducer)) {
         globalState[key] = reducer(undefined, {
-          type: "__@@PLACEHOLDER_ACTION__",
+          type: '__@@PLACEHOLDER_ACTION__',
         })
       } else {
         console.error(`${reducer} is not a function`)

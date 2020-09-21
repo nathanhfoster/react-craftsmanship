@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { connect } from 'store';
 import { BasicInput } from 'components';
 import { toggleShouldMemoizeInputFields } from '../../redux/Form/actions';
 

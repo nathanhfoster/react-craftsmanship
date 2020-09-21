@@ -11,11 +11,11 @@ import * as serviceWorker from './serviceWorker';
 const store = storeFactory();
 
 ReactDOM.render(
-  <Provider store={store}>
-    {/* <ContextProvider reducers={reducers}> */}
+  // <Provider store={store}>
+  <ContextProvider reducers={reducers}>
     <App />
-    {/* </ContextProvider>, */}
-  </Provider>,
+  </ContextProvider>,
+  //</Provider>,
   document.getElementById('root'),
 );
 

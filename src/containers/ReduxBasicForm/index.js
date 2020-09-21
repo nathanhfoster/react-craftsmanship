@@ -1,6 +1,6 @@
 import React, { useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { connect } from 'store';
 import { Form } from 'reactstrap';
 import { BasicInput, MemoizedComponent } from 'components';
 import { SELECT_INPUT_OPTIONS } from 'redux/Form/utils';

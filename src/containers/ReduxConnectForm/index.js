@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector } from 'store';
 import { Form } from 'reactstrap';
 import { ReduxBasicInput, MemoizedComponent } from 'components';
 
