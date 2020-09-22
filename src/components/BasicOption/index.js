@@ -1,5 +1,5 @@
-import React from "react"
-import { optionProps } from "./propTypes"
+import React from 'react'
+import { optionProps } from './propTypes'
 
 const BasicOption = ({ name }) => {
   return <option>{name}</option>

@@ -1,5 +1,5 @@
-import React, { memo } from "react"
-import PropTypes from "prop-types"
+import React, { memo } from 'react'
+import PropTypes from 'prop-types'
 
 const MemoizedComponent = ({ Component, children, ...componentProps }) =>
   children ? (

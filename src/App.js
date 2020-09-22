@@ -30,8 +30,9 @@ const App = () => {
         </Col>
       </Row>
       <Row tag='h4' className='justify-content-center'>
-        Check out the source code on{' '}
+        Check out the source code on
         <a
+          className='ml-1'
           href='https://github.com/strap8/react-craftsmanship'
           target='_blank'
           rel='noopener noreferrer'

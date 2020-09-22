@@ -1,7 +1,7 @@
-import React from 'react';
-import { useSelector } from 'store';
-import { Form } from 'reactstrap';
-import { ReduxBasicInput, MemoizedComponent } from 'components';
+import React from 'react'
+import { useSelector } from 'react-redux'
+import { Form } from 'reactstrap'
+import { ReduxBasicInput, MemoizedComponent } from 'components'
 
 // useSelector and the equality function if fields are not known.
 // we want to implement this because we don't want to rerender when a field in form2 changes
@@ -10,22 +10,22 @@ const isEqual = (nextSelection, prevSelection) => {
   const {
     shouldMemoizeInputFields: prevShouldMemoizeInputFields,
     renderInputs: prevRenderInputs,
-  } = prevSelection;
+  } = prevSelection
 
   const {
     shouldMemoizeInputFields: nextShouldMemoizeInputFields,
     renderInputs: nextRenderInputs,
-  } = nextSelection;
+  } = nextSelection
 
   const shouldMemoizeInputFieldsAreEqual =
-    prevShouldMemoizeInputFields === nextShouldMemoizeInputFields;
+    prevShouldMemoizeInputFields === nextShouldMemoizeInputFields
 
-  const renderInputsAreEqual = prevRenderInputs.length === nextRenderInputs.length;
+  const renderInputsAreEqual = prevRenderInputs.length === nextRenderInputs.length
 
-  const isEqual = shouldMemoizeInputFieldsAreEqual && renderInputsAreEqual;
+  const isEqual = shouldMemoizeInputFieldsAreEqual && renderInputsAreEqual
 
-  return isEqual;
-};
+  return isEqual
+}
 
 const ReduxConnectForm = () => {
   // similar to the connect function but doesn;t not support memoization out of the box
@@ -47,9 +47,9 @@ const ReduxConnectForm = () => {
       ),
     }),
     isEqual,
-  );
+  )
 
-  return <Form>{renderInputs}</Form>;
-};
+  return <Form>{renderInputs}</Form>
+}
 
-export default ReduxConnectForm;
+export default ReduxConnectForm
