@@ -31,11 +31,32 @@ const Forms = (state = DEFAULT_STATE_FORMS, action) => {
       }
 
     case FormActionTypes.FORM_ON_CHANGE:
+      const currentForm = state[formKey]
+      const currentInputField = state[formKey][fieldKey]
+      // const { fieldDependencies } = currentInputField
+
+      // const invalid = fieldDependencies.some(fieldKey => {
+      //   const { isInvalid, value } = currentForm[fieldKey]
+
+      //   return isInvalid(value)
+      // })
+
+      // const inputFieldDependencies = fieldDependencies.reduce((acc, fieldKey) => {
+      //   const current = currentForm[fieldKey]
+      //   const { isInvalid, value } = currentForm[fieldKey]
+      //   acc[fieldKey] = { ...current, invalid: isInvalid(payload) }
+
+      //   return acc
+      // }, {})
+
+      // console.log(inputFieldDependencies)
+
       return {
         ...state,
         [formKey]: {
-          ...state[formKey],
-          [fieldKey]: { ...state[formKey][fieldKey], value: payload },
+          ...currentForm,
+          // ...inputFieldDependencies,
+          [fieldKey]: { ...currentInputField, value: payload },
         },
       }
 
