@@ -10,11 +10,11 @@ const toggleShouldMemoizeInputFields = () => ({
 });
 
 // Destructure event.target
-const handleOnFormChange = (formKey, { target: { name, value, checked } }) => ({
+const handleOnFormChange = (formKey, { target: { id, name, value, type, checked, files }}) => ({
   type: FormActionTypes.FORM_ON_CHANGE,
   formKey,
   fieldKey: name,
-  payload: checked || value,
+  payload: files || checked || value,
 });
 
 export { setNumberOfInputFields, toggleShouldMemoizeInputFields, handleOnFormChange };
