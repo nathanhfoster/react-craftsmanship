@@ -159,8 +159,8 @@ const connect = (mapStateToProps, mapDispatchToProps) =>
       // Memoize the Component's combined props
       const renderComponent = React.useMemo(() => {
         const combinedComponentProps = {
-          ...ownProps,
           ...stateToProps,
+          ...ownProps,
           // not all components need to dispatch actions so its optional
           ...(mapDispatchToProps && {
             ...dispatchToProps,
@@ -168,7 +168,7 @@ const connect = (mapStateToProps, mapDispatchToProps) =>
         }
         // Pass all the key value combinedComponentProps to Component
         return <Component {...combinedComponentProps} />
-      }, [stateToProps])
+      }, [stateToProps, ownProps])
 
       return renderComponent
     }
