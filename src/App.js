@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { lazy } from 'react'
 import { Container, Row, Col } from 'reactstrap'
 import {
-  ReduxSetNumberOfFields,
-  ReduxBasicForm,
+  // ReduxSetNumberOfFields,
+  FormWithUseState,
+  FormWithUseContextAndReducer,
   ShouldMemoizeComponents,
-  ReduxConnectForm,
+  FormWithRedux,
 } from 'containers'
+
+const ReduxSetNumberOfFields = lazy(() => import('./containers/ReduxSetNumberOfFields'))
 
 const App = () => {
   return (
@@ -46,11 +49,12 @@ const App = () => {
           width={560}
           height={315}
           src='https://www.youtube.com/embed/KypVn6vGFWg'
-          frameborder='0'
+          frameBorder='0'
           allow='accelerometer autoplay clipboard-write encrypted-media gyroscope picture-in-picture'
-          allowfullscreen
+          allowFullScreen
         ></iframe>
       </Row>
+
       <Row className='my-3'>
         <Col>
           <div className='d-inline-flex'>
@@ -74,17 +78,27 @@ const App = () => {
         </Col>
       </Row>
       <Row className='border'>
-        <Col xs={6}>
+        <Col xs={4}>
           <h2 className='text-center text-success'>Form with useState</h2>
           <h5 className='text-center text-info'>
             Input fields are tightly coupled to the parent's state
           </h5>
-          <ReduxBasicForm />
+          <FormWithUseState />
         </Col>
-        <Col xs={6}>
+        <Col xs={4}>
+          <h2 className='text-center text-success'>Form with useReducer</h2>
+          <h5 className='text-center text-info'>
+            Input fields are coupled together with the ContextProivder's value
+          </h5>
+          <FormWithUseContextAndReducer />
+        </Col>
+
+        <Col xs={4}>
           <h2 className='text-center text-success'>Form with redux</h2>
-          <h5 className='text-center text-info'>Input fields are atomic and are isolated</h5>
-          <ReduxConnectForm />
+          <h5 className='text-center text-info'>
+            Input fields are atomic and are isolated with optimal performance
+          </h5>
+          <FormWithRedux />
         </Col>
       </Row>
     </Container>

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Form } from 'reactstrap'
 import { BasicInput, MemoizedComponent } from 'components'
-import { SELECT_INPUT_OPTIONS } from 'redux/Form/utils'
 import { handleOnFormChange } from 'redux/Form/actions'
 import { FormProps } from 'redux/Form/propTypes'
 
@@ -14,7 +13,7 @@ const mapStateToProps = ({ Forms: { form1, shouldMemoizeInputFields } }) => ({
 
 const mapDispatchToProps = { handleOnFormChange }
 
-const ReduxBasicForm = ({
+const FormWithUseState = ({
   form1,
 
   shouldMemoizeInputFields,
@@ -45,10 +44,10 @@ const ReduxBasicForm = ({
   return <Form>{renderInputFields}</Form>
 }
 
-ReduxBasicForm.propTypes = {
+FormWithUseState.propTypes = {
   form1: FormProps,
   shouldMemoizeInputFields: PropTypes.bool.isRequired,
   handleOnFormChange: PropTypes.func.isRequired,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ReduxBasicForm)
+export default connect(mapStateToProps, mapDispatchToProps)(FormWithUseState)

@@ -9,6 +9,7 @@ const DEFAULT_STATE_FORMS = {
   numberOfInputFields: DEFAULT_NUMBER_OF_INPUT_FIELDS,
   form1: formFields,
   form2: formFields,
+  form3: formFields,
   shouldMemoizeInputFields: false,
 }
 
@@ -22,6 +23,7 @@ const Forms = (state = DEFAULT_STATE_FORMS, action) => {
         numberOfInputFields: payload,
         form1: newFormFields,
         form2: newFormFields,
+        form3: newFormFields,
       }
 
     case FormActionTypes.FORM_TOGGLE_SHOW_MEMOIZED_COMPONENTS:

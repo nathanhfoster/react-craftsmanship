@@ -1,14 +1,4 @@
-import {
-  useContext as reactUseContext,
-  useState,
-  useRef,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-} from 'react'
-import { ContextConsumer } from '../provider'
-
-const useContext = (context = ContextConsumer) => reactUseContext(context)
+import { useContext, useState, useRef, useEffect, useLayoutEffect, useMemo } from 'react'
 
 const usePrevious = value => {
   let ref = useRef()
@@ -20,8 +10,8 @@ const usePrevious = value => {
   return ref.current
 }
 
-const useSelector = (mapStateToProps, isEqual) => {
-  const { state } = useContext()
+const useSelector = (context, mapStateToProps, isEqual) => {
+  const { state } = useContext(context)
 
   const [selector, setSelector] = useState(mapStateToProps(state))
 
@@ -40,11 +30,12 @@ const useSelector = (mapStateToProps, isEqual) => {
   return selector
 }
 
-const useDispatch = (context = ContextConsumer) => {
+const useDispatch = context => {
   const { dispatch } = useContext(context)
+
   const memoizedDispatch = useMemo(() => dispatch, [dispatch])
 
   return memoizedDispatch
 }
 
-export { useSelector, useDispatch, useContext, usePrevious }
+export { useSelector, useDispatch, usePrevious }

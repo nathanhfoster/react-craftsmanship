@@ -75,6 +75,13 @@ const getRandomFields = (size = DEFAULT_NUMBER_OF_INPUT_FIELDS) => {
   return initialObjectWithRandomDependencies
 }
 
+const errorUtil = (fieldKey, state) => {
+
+  switch(fieldKey === 'officer') {
+    
+  }
+}
+
 export {
   getFormFieldName,
   NUMBER_OF_INPUT_OPTIONS,

@@ -1,13 +1,15 @@
 import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import { connect } from 'context'
 import { BasicInput } from 'components'
 import { handleOnFormChange } from 'redux/Form/actions'
 import { InputProps } from 'components/BasicInput/propTypes'
+import { FormWithUseContextAndReducerContext } from 'context'
 
 // We are mapping into the values on individual input fields for atomicity
-const mapStateToProps = ({ Forms }, { reducerKey, fieldKey }) => {
-  const form = Forms[reducerKey]
+const mapStateToProps = (state, ownProps) => {
+  const { reducerKey, fieldKey } = ownProps
+  const form = state[reducerKey]
   const inputField = form[fieldKey]
   const { fieldDependencies, ...restOfInputProps } = inputField
   const invalid = fieldDependencies.some(fieldKey => {
@@ -23,18 +25,16 @@ const mapStateToProps = ({ Forms }, { reducerKey, fieldKey }) => {
   }
 }
 
-const mapDispatchToProps = { handleOnFormChange }
-
-const ReduxBasicInput = ({ handleOnFormChange, ...inputProps }) => {
-  const handleOnChange = useCallback(e => handleOnFormChange('form3', e), [])
+const ContextBasicInput = ({ dispatch, ...inputProps }) => {
+  const handleOnChange = useCallback(e => dispatch(handleOnFormChange('form2', e)), [])
 
   return <BasicInput {...inputProps} onChange={handleOnChange} />
 }
 
-ReduxBasicInput.propTypes = {
+ContextBasicInput.propTypes = {
   reducerKey: PropTypes.string.isRequired,
   fieldKey: PropTypes.string.isRequired,
   ...InputProps,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ReduxBasicInput)
+export default connect(FormWithUseContextAndReducerContext, mapStateToProps)(ContextBasicInput)

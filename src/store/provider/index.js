@@ -20,7 +20,6 @@ const store = storeFactory()
 
 // This allows actions to dispatch other actions and pass (dispatch, getState)
 const augmentDispatch = (dispatch, state) => input => {
-  // console.log(isAFunction(input), input)
   const getState = () => state
   return isAFunction(input) ? input(dispatch, getState) : dispatch(input)
 }
@@ -50,7 +49,7 @@ const ContextProvider = ({ reducers, initialState, initializer, children }) => {
     }
   }, [augmentedDispatch])
 
-  // pass in the returned value of useReducer
+   // make our context object value
   const contextValue = useMemo(() => ({ state, dispatch: augmentedDispatch }), [
     state,
     augmentedDispatch,

@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { BasicDropDown } from 'components'
 import { setNumberOfInputFields } from '../../redux/Form/actions'
 import { NUMBER_OF_INPUT_OPTIONS } from '../../redux/Form/utils'
+import { FormWithUseContextAndReducerContext, useDispatch } from 'context'
 
 const OPTIONS = NUMBER_OF_INPUT_OPTIONS.map(o => ({ id: o }))
 
@@ -14,7 +15,12 @@ const mapStateToProps = ({ Forms: { numberOfInputFields } }) => ({
 const mapDispatchToProps = { setNumberOfInputFields }
 
 const ReduxSetNumberOfFields = ({ numberOfInputFields, setNumberOfInputFields }) => {
-  const handleSetNumberOfInputFields = useCallback(value => setNumberOfInputFields(value), [])
+  const FormWithUseContextAndReducerDispatch = useDispatch(FormWithUseContextAndReducerContext)
+
+  const handleSetNumberOfInputFields = useCallback(value => {
+    setNumberOfInputFields(value)
+    FormWithUseContextAndReducerDispatch(setNumberOfInputFields(value))
+  }, [])
 
   return (
     <BasicDropDown
