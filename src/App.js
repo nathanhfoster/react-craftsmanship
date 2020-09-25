@@ -79,14 +79,16 @@ const App = () => {
       </Row>
       <Row className='border'>
         <Col xs={4}>
-          <h2 className='text-center text-success'>Form with useState</h2>
+          <h2 className='text-center text-success'>Form with</h2>
+          <h3 className='text-center text-success'>useState</h3>
           <h5 className='text-center text-info'>
             Input fields are tightly coupled to the parent's state
           </h5>
           <FormWithUseState />
         </Col>
         <Col xs={4}>
-          <h2 className='text-center text-success'>Form with useReducer</h2>
+          <h2 className='text-center text-success'>Form with</h2>
+          <h3 className='text-center text-success'>useContext / useReducer</h3>
           <h5 className='text-center text-info'>
             Input fields are coupled together with the ContextProivder's value
           </h5>
@@ -94,7 +96,8 @@ const App = () => {
         </Col>
 
         <Col xs={4}>
-          <h2 className='text-center text-success'>Form with redux</h2>
+          <h2 className='text-center text-success'>Form with</h2>
+          <h3 className='text-center text-success'>Redux</h3>
           <h5 className='text-center text-info'>
             Input fields are atomic and are isolated with optimal performance
           </h5>
