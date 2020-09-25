@@ -1,4 +1,4 @@
-import React, { useContext, useLayoutEffect } from 'react'
+import React, { useContext, useState, useLayoutEffect, useMemo } from 'react'
 import { usePrevious } from './hooks'
 import { shallowEquals } from 'utils'
 
@@ -9,7 +9,7 @@ const connect = (context, mapStateToProps) => Component => ownProps => {
   const { state, dispatch } = useContext(context)
 
   // Memoize stateToProps
-  const [stateToProps, setStateProps] = React.useState(
+  const [stateToProps, setStateProps] = useState(
     getMapStateToProps(mapStateToProps, state, ownProps),
   )
 
@@ -26,7 +26,7 @@ const connect = (context, mapStateToProps) => Component => ownProps => {
   }, [state])
 
   // Memoize the Component's combined props
-  const renderComponent = React.useMemo(() => {
+  const renderComponent = useMemo(() => {
     const combinedComponentProps = {
       ...stateToProps,
       ...ownProps,
