@@ -7,6 +7,7 @@ import {
   useMemo,
 } from 'react'
 import { ContextConsumer } from '../provider'
+import { shallowEquals } from '../utils'
 
 const useContext = (context = ContextConsumer) => reactUseContext(context)
 
@@ -20,8 +21,11 @@ const usePrevious = value => {
   return ref.current
 }
 
-const useSelector = (mapStateToSelector, isEqual) => {
-  const { state } = useContext()
+const defaultIsEqual = (nextSelector, previousSelector) =>
+  shallowEquals(previousSelector, nextSelector)
+
+const useSelector = (context, mapStateToSelector, isEqual = defaultIsEqual) => {
+  const { state } = useContext(context)
 
   const [selector, setSelector] = useState(mapStateToSelector(state))
 

@@ -25,7 +25,7 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const ContextBasicInput = ({ dispatch, ...inputProps }) => {
+const ContextBasicInput = ({ reducerKey, fieldKey, dispatch, ...inputProps }) => {
   const handleOnChange = useCallback(e => dispatch(handleOnFormChange('form2', e)), [])
 
   return <BasicInput {...inputProps} onChange={handleOnChange} />

@@ -1,4 +1,5 @@
 import { useContext, useState, useRef, useEffect, useLayoutEffect, useMemo } from 'react'
+import { shallowEquals } from './utils'
 
 const usePrevious = value => {
   let ref = useRef()
@@ -10,7 +11,10 @@ const usePrevious = value => {
   return ref.current
 }
 
-const useSelector = (context, mapStateToSelector, isEqual) => {
+const defaultIsEqual = (nextSelector, previousSelector) =>
+  shallowEquals(previousSelector, nextSelector)
+
+const useSelector = (context, mapStateToSelector, isEqual = defaultIsEqual) => {
   const { state } = useContext(context)
 
   const [selector, setSelector] = useState(mapStateToSelector(state))
