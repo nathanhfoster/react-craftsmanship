@@ -27,7 +27,7 @@ const isEqual = (nextSelection, prevSelection) => {
   return isEqual
 }
 
-const mapStateToProps = ({ Forms: { form3, shouldMemoizeInputFields } }) => ({
+const mapStateToSelector = ({ Forms: { form3, shouldMemoizeInputFields } }) => ({
   shouldMemoizeInputFields,
   renderInputs: Object.keys(form3).map(fieldKey =>
     shouldMemoizeInputFields ? (
@@ -46,7 +46,7 @@ const mapStateToProps = ({ Forms: { form3, shouldMemoizeInputFields } }) => ({
 const FormWithRedux = () => {
   // similar to the connect function but doesn;t not support memoization out of the box
   // we implement our own equality function to reduce the times renderInputs is computed
-  const { renderInputs } = useSelector(mapStateToProps, isEqual)
+  const { renderInputs } = useSelector(mapStateToSelector, isEqual)
 
   return <Form>{renderInputs}</Form>
 }

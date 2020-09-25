@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { BasicInput } from 'components'
 import { toggleShouldMemoizeInputFields } from '../../redux/Form/actions'
-import { FormWithUseContextAndReducerContext, useDispatch } from 'context'
 
 const mapStateToProps = ({ Forms: { shouldMemoizeInputFields } }) => ({
   shouldMemoizeInputFields,
@@ -12,11 +11,8 @@ const mapStateToProps = ({ Forms: { shouldMemoizeInputFields } }) => ({
 const mapDispatchToProps = { toggleShouldMemoizeInputFields }
 
 const ShouldMemoizeComponents = ({ shouldMemoizeInputFields, toggleShouldMemoizeInputFields }) => {
-  const FormWithUseContextAndReducerDispatch = useDispatch(FormWithUseContextAndReducerContext)
-
   const handleSetNumberOfInputFields = useCallback(() => {
     toggleShouldMemoizeInputFields()
-    FormWithUseContextAndReducerDispatch(toggleShouldMemoizeInputFields())
   }, [])
 
   const renderCheckBox = useMemo(

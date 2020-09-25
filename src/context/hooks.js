@@ -10,16 +10,16 @@ const usePrevious = value => {
   return ref.current
 }
 
-const useSelector = (context, mapStateToProps, isEqual) => {
+const useSelector = (context, mapStateToSelector, isEqual) => {
   const { state } = useContext(context)
 
-  const [selector, setSelector] = useState(mapStateToProps(state))
+  const [selector, setSelector] = useState(mapStateToSelector(state))
 
   const previousSelector = usePrevious(selector)
 
   useLayoutEffect(() => {
     if (previousSelector) {
-      const nextSelector = mapStateToProps(state)
+      const nextSelector = mapStateToSelector(state)
       const shouldUpdate = !isEqual(nextSelector, previousSelector)
       if (shouldUpdate) {
         setSelector(nextSelector)
