@@ -84,14 +84,14 @@ const BasicInput = ({
   }, [renderInput, label, required, name])
 
   return (
-    <Profiler id='BasicInput' render={inputProfiler}>
+    // <Profiler id='BasicInput' render={inputProfiler}>
       <FormGroup check={isCheckOrRadio} row={row}>
         {renderLabel}
         {typeof valid === 'string' && <FormFeedback valid={!valid}>{valid}</FormFeedback>}
         {typeof invalid === 'string' && <FormFeedback valid={!invalid}>{invalid}</FormFeedback>}
         {helpText && <FormText>{helpText}</FormText>}
       </FormGroup>
-    </Profiler>
+    // </Profiler>
   )
 }
 

@@ -1,4 +1,4 @@
-import React, { useReducer, useLayoutEffect, useMemo } from 'react'
+import React, { useState, useLayoutEffect, useMemo } from 'react'
 import { usePrevious, useContext } from '../hooks'
 import { ContextConsumer } from './'
 import { shallowEquals } from '../utils'
@@ -50,8 +50,7 @@ const connect = (mapStateToProps, mapDispatchToProps) => Component => ownProps =
   const { state, dispatch } = useContext(ContextConsumer)
 
   // Memoize stateToProps
-  const [stateToProps, setStateProps] = useReducer(
-    (state, action) => ({ ...state, ...action }),
+  const [stateToProps, setStateProps] = useState(
     getMapStateToProps(mapStateToProps, state, ownProps),
   )
 
