@@ -17,7 +17,7 @@ const App = () => {
         React Form Memoziation
       </Row>
       <Row>
-        <Col tag='h3'>
+        <Col tag='h3' xs={12}>
           Enable the
           <span className='text-info mx-1'>"Highlight updates when components render"</span>
           option in your
@@ -30,6 +30,19 @@ const App = () => {
             React Developer Tools
           </a>{' '}
           to visiualize the rerenders of the two forms and their input fields
+        </Col>
+        <Col tag='h3' xs={12}>
+          Check out the
+          <a
+            className='ml-1'
+            href='https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            {' '}
+            Redux Devool
+          </a>{' '}
+          to visiualize the redux store
         </Col>
       </Row>
       <Row tag='h4' className='justify-content-center'>

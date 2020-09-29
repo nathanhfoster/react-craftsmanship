@@ -1,7 +1,8 @@
-import React, { useMemo, Fragment } from 'react'
+import React, { useMemo, Fragment, Profiler } from 'react'
 import { InputProps } from './propTypes'
 import { FormGroup, Label, Input, FormFeedback, FormText } from 'reactstrap'
 import BasicOption from '../BasicOption'
+import inputProfiler from './profiler'
 
 const BasicInput = ({
   id,
@@ -83,12 +84,14 @@ const BasicInput = ({
   }, [renderInput, label, required, name])
 
   return (
-    <FormGroup check={isCheckOrRadio} row={row}>
-      {renderLabel}
-      {typeof valid === 'string' && <FormFeedback valid={!valid}>{valid}</FormFeedback>}
-      {typeof invalid === 'string' && <FormFeedback valid={!invalid}>{invalid}</FormFeedback>}
-      {helpText && <FormText>{helpText}</FormText>}
-    </FormGroup>
+    <Profiler id='BasicInput' render={inputProfiler}>
+      <FormGroup check={isCheckOrRadio} row={row}>
+        {renderLabel}
+        {typeof valid === 'string' && <FormFeedback valid={!valid}>{valid}</FormFeedback>}
+        {typeof invalid === 'string' && <FormFeedback valid={!invalid}>{invalid}</FormFeedback>}
+        {helpText && <FormText>{helpText}</FormText>}
+      </FormGroup>
+    </Profiler>
   )
 }
 

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback , Profiler} from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'context'
 import { BasicInput } from 'components'

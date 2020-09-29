@@ -14,11 +14,12 @@ const mapStateToProps = ({ Forms: { form1, shouldMemoizeInputFields } }) => ({
 const mapDispatchToProps = { handleOnFormChange }
 
 const FormWithUseState = ({
+  // passing in the form1 from redux like this is the same as if it used useState in this component
   form1,
-
   shouldMemoizeInputFields,
   handleOnFormChange,
 }) => {
+  
   const handleOnChange = useCallback(e => handleOnFormChange('form1', e), [])
 
   // Didn't use useMemo because the dependency array would contain all of the components props

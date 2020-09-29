@@ -1,4 +1,4 @@
-import React, { useContext, useState, useLayoutEffect, useMemo } from 'react'
+import React, { useContext, useReducer, useLayoutEffect, useMemo } from 'react'
 import { usePrevious } from './hooks'
 import { shallowEquals } from 'utils'
 
@@ -9,7 +9,8 @@ const connect = (context, mapStateToProps) => Component => ownProps => {
   const { state, dispatch } = useContext(context)
 
   // Memoize stateToProps
-  const [stateToProps, setStateProps] = useState(
+  const [stateToProps, setStateProps] = useReducer(
+    (state, action) => ({ ...state, ...action }),
     getMapStateToProps(mapStateToProps, state, ownProps),
   )
 

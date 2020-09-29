@@ -1,4 +1,4 @@
-import { useContext, useState, useRef, useEffect, useLayoutEffect, useMemo } from 'react'
+import { useContext, useReducer, useRef, useEffect, useLayoutEffect, useMemo } from 'react'
 import { shallowEquals } from './utils'
 
 const usePrevious = value => {
@@ -17,7 +17,10 @@ const defaultIsEqual = (nextSelector, previousSelector) =>
 const useSelector = (context, mapStateToSelector, isEqual = defaultIsEqual) => {
   const { state } = useContext(context)
 
-  const [selector, setSelector] = useState(mapStateToSelector(state))
+  const [selector, setSelector] = useReducer(
+    (state, action) => ({ ...state, ...action }),
+    mapStateToSelector(state),
+  )
 
   const previousSelector = usePrevious(selector)
 

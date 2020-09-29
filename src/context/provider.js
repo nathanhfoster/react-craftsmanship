@@ -8,7 +8,7 @@ const ContextProvider = ({ context, reducer, initialState, initializer, children
   const [state, dispatch] = useReducer(reducer, initialState, initializer)
 
   // make our context object value
-  const contextValue = useMemo(() => ({ state, dispatch }), [state, dispatch])
+  const contextValue = useMemo(() => ({ state, dispatch }), [state])
 
   return <context.Provider value={contextValue}>{children}</context.Provider>
 }
