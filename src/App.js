@@ -57,16 +57,18 @@ const App = () => {
         </a>
       </Row>
       <Row className='justify-content-center'>
-        <iframe
-          className='embed-responsive embed-responsive-16by9'
-          title='Visualize The Power Of Redux and Memoizationi In React'
-          width={560}
-          height={315}
-          src='https://www.youtube.com/embed/KypVn6vGFWg'
-          frameBorder='0'
-          allow='accelerometer autoplay clipboard-write encrypted-media gyroscope picture-in-picture'
-          allowFullScreen
-        ></iframe>
+         <Col>
+           <iframe
+             className='embed-responsive embed-responsive-16by9'
+             title='Visualize The Power Of Redux and Memoizationi In React'
+             width={560}
+             height={315}
+             src='https://www.youtube.com/embed/KypVn6vGFWg'
+             frameBorder='0'
+             allow='accelerometer autoplay clipboard-write encrypted-media gyroscope picture-in-picture'
+             allowFullScreen
+           />
+         </Col>
       </Row>
 
       <Row className='my-3'>
