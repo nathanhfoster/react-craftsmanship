@@ -58,6 +58,7 @@ const App = () => {
       </Row>
       <Row className='justify-content-center'>
         <iframe
+          className='embed-responsive embed-responsive-16by9'
           title='Visualize The Power Of Redux and Memoizationi In React'
           width={560}
           height={315}
