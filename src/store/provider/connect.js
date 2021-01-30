@@ -64,7 +64,7 @@ const connect = (mapStateToProps, mapDispatchToProps) => Component => ownProps =
         setStateProps(nextStateToProps)
       }
     }
-  }, [state])
+  }, [state, ownProps])
 
   // Memoize globalDispatch
   const dispatchToProps = useMemo(
