@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect, useMemo } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { usePrevious, useContext } from '../hooks'
 import { ContextConsumer } from './'
 import { shallowEquals } from '../utils'
@@ -51,13 +51,13 @@ const connect = (mapStateToProps, mapDispatchToProps) => Component => ownProps =
 
   // Memoize stateToProps
   const [stateToProps, setStateProps] = useState(
-    getMapStateToProps(mapStateToProps, state, ownProps),
+   () =>  getMapStateToProps(mapStateToProps, state, ownProps),
   )
 
   const prevStateToProps = usePrevious(stateToProps)
 
   // Check if Component should rerender
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (prevStateToProps) {
       const nextStateToProps = getMapStateToProps(mapStateToProps, state, ownProps)
       if (!shallowEquals(prevStateToProps, nextStateToProps)) {
