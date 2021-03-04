@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { memo, useState, useEffect, useMemo } from 'react'
 import { usePrevious, useContext } from '../hooks'
 import { ContextConsumer } from './'
 import { shallowEquals } from '../utils'
@@ -43,55 +43,43 @@ const bindActionCreators = (actionCreators, dispatch, state) => {
   return boundActionCreators
 }
 
+const statesAreEqual = (prevState, nextState) => shallowEquals(prevState, nextState)
+
 const getMapStateToProps = (mapStateToProps, state, ownProps) =>
   mapStateToProps ? mapStateToProps(state, ownProps) : null
 
-const connect = (mapStateToProps, mapDispatchToProps) => Component => ownProps => {
-  const { state, dispatch } = useContext(ContextConsumer)
+const connect = (mapStateToProps, mapDispatchToProps) => Component => {
+  const MemoizedComponent = memo(Component, statesAreEqual)
+  return ownProps => {
+    const { state, dispatch } = useContext(ContextConsumer)
 
-  // Memoize stateToProps
-  const [stateToProps, setStateProps] = useState(
-   () =>  getMapStateToProps(mapStateToProps, state, ownProps),
-  )
+    // Memoize stateToProps
+    const stateToProps = useMemo(() => getMapStateToProps(mapStateToProps, state, ownProps), [
+      state,
+      ownProps,
+    ])
 
-  const prevStateToProps = usePrevious(stateToProps)
+    // Memoize globalDispatch
+    const dispatchToProps = useMemo(
+      () =>
+        !mapDispatchToProps
+          ? null
+          : mapDispatchToProps instanceof Function || typeof mapDispatchToProps === 'function'
+          ? mapDispatchToProps(dispatch, ownProps)
+          : bindActionCreators(mapDispatchToProps, dispatch, state),
+      [state, ownProps],
+    )
 
-  // Check if Component should rerender
-  useEffect(() => {
-    if (prevStateToProps) {
-      const nextStateToProps = getMapStateToProps(mapStateToProps, state, ownProps)
-      if (!shallowEquals(prevStateToProps, nextStateToProps)) {
-        setStateProps(nextStateToProps)
-      }
-    }
-  }, [state, ownProps])
-
-  // Memoize globalDispatch
-  const dispatchToProps = useMemo(
-    () =>
-      !mapDispatchToProps
-        ? null
-        : mapDispatchToProps instanceof Function || typeof mapDispatchToProps === 'function'
-        ? mapDispatchToProps(dispatch, ownProps)
-        : bindActionCreators(mapDispatchToProps, dispatch, state),
-    [stateToProps],
-  )
-
-  // Memoize the Component's combined props
-  const renderComponent = useMemo(() => {
-    const combinedComponentProps = {
-      ...stateToProps,
-      ...ownProps,
-      // not all components need to dispatch actions so its optional
-      ...(mapDispatchToProps && {
-        ...dispatchToProps,
-      }),
-    }
-    // Pass all the key value combinedComponentProps to Component
-    return <Component {...combinedComponentProps} />
-  }, [stateToProps, ownProps])
-
-  return renderComponent
+    return (
+      <MemoizedComponent
+        {...stateToProps}
+        {...ownProps}
+        {...(mapDispatchToProps && {
+          ...dispatchToProps,
+        })}
+      />
+    )
+  }
 }
 
 export default connect
