@@ -1,7 +1,6 @@
-import React, { memo, useState, useEffect, useMemo } from 'react'
-import { usePrevious, useContext } from '../hooks'
+import React, { memo,useMemo } from 'react'
+import { useContext } from '../hooks'
 import { ContextConsumer } from './'
-import { shallowEquals } from '../utils'
 
 const bindActionCreator = (actionCreator, dispatch, state) => {
   const getState = () => state
@@ -43,13 +42,11 @@ const bindActionCreators = (actionCreators, dispatch, state) => {
   return boundActionCreators
 }
 
-const statesAreEqual = (prevState, nextState) => shallowEquals(prevState, nextState)
-
 const getMapStateToProps = (mapStateToProps, state, ownProps) =>
   mapStateToProps ? mapStateToProps(state, ownProps) : null
 
 const connect = (mapStateToProps, mapDispatchToProps) => Component => {
-  const MemoizedComponent = memo(Component, statesAreEqual)
+  const MemoizedComponent = memo(Component)
   return ownProps => {
     const { state, dispatch } = useContext(ContextConsumer)
 
