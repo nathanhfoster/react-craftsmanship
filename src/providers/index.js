@@ -1,15 +1,16 @@
 import React from 'react'
-import { ContextProvider, FormWithUseContextAndReducerContext } from 'context'
+import { MemoizedContextProvider } from 'ContextStore'
+import { FormWithUseContextAndReducerContext } from 'context'
 import { Forms, DEFAULT_STATE_FORMS } from 'redux/Form/reducer'
 
 const FormWithUseContextAndReducerProvider = ({ children }) => (
-  <ContextProvider
+  <MemoizedContextProvider
     context={FormWithUseContextAndReducerContext}
-    reducer={Forms}
+    reducers={Forms}
     initialState={DEFAULT_STATE_FORMS}
   >
     {children}
-  </ContextProvider>
+  </MemoizedContextProvider>
 )
 
 export { FormWithUseContextAndReducerProvider }

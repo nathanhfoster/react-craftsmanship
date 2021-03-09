@@ -4,7 +4,8 @@ import { connect } from 'react-redux'
 import { BasicDropDown } from 'components'
 import { setNumberOfInputFields } from '../../redux/Form/actions'
 import { NUMBER_OF_INPUT_OPTIONS } from '../../redux/Form/utils'
-import { FormWithUseContextAndReducerContext, useDispatch } from 'context'
+import { FormWithUseContextAndReducerContext } from 'context'
+import { useDispatch } from 'ContextStore'
 
 const OPTIONS = NUMBER_OF_INPUT_OPTIONS.map(o => ({ id: o }))
 

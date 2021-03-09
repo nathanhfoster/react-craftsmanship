@@ -1,13 +1,25 @@
-import React, { useState, useMemo } from 'react'
-import PropTypes from 'prop-types'
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
-import './styles.css'
+import React, {
+  useState,
+  useMemo,
+  memo,
+  useEffect,
+  useReducer,
+  useRef,
+} from "react"
+import PropTypes from "prop-types"
+import {
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+} from "reactstrap"
+import "./styles.css"
 
-const FUNCTION_MODIFIER = data => ({
+const FUNCTION_MODIFIER = (data) => ({
   ...data,
   styles: {
     ...data.styles,
-    overflow: 'auto',
+    overflow: "auto",
     maxHeight: 200,
     // backgroundColor: "var(--primaryColor)"
   },
@@ -21,38 +33,66 @@ const MODIFIERS = {
   },
 }
 
-const BasicDropDown = ({ options, onChange, direction, value, className }) => {
-  const [dropdownOpen, setDropdownOpen] = useState(false)
-
-  const toggle = () => setDropdownOpen(prevState => !prevState)
+export const BasicDropDown = ({
+  options,
+  onChange,
+  direction,
+  value: propValue,
+  className,
+  color,
+  caret,
+}) => {
+  const mounted = useRef(false)
+  const [dropdownOpen, toggle] = useReducer((prevState) => !prevState, false)
+  const [value, setValue] = useState(propValue || options[0]?.value)
+  useEffect(() => {
+    if (mounted.current) {
+      setValue(propValue)
+    }
+    mounted.current = true
+  }, [propValue])
 
   const renderOptions = useMemo(
     () =>
       options.map((l, i) => {
-        const { id, value, header, disabled, divider } = l
+        const { id, value, ...restOfProps } = l
+        const handleClick = () => {
+          if (onChange) {
+            onChange(id, value)
+          } else {
+            setValue(value)
+          }
+        }
         return (
           <DropdownItem
             key={`${id}-${i}`}
-            divider={divider}
-            header={header}
-            disabled={disabled}
-            onClick={() => onChange && onChange(id, value)}
+            onClick={handleClick}
+            {...restOfProps}
           >
             {value || id}
           </DropdownItem>
         )
       }),
-    [options],
+    [onChange, options]
   )
+
+  const disabled = useMemo(() => options.every(({ disabled }) => disabled), [
+    options,
+  ])
 
   return (
     <Dropdown
+      className={className}
       isOpen={dropdownOpen}
       toggle={toggle}
       direction={direction}
-      className={`BasicDropDown ${className}`}
     >
-      <DropdownToggle caret color='primary' className={`BasicDropDownToggle`}>
+      <DropdownToggle
+        className="BasicDropDownToggle"
+        caret={caret}
+        color={color}
+        disabled={disabled}
+      >
         {value}
       </DropdownToggle>
       <DropdownMenu modifiers={MODIFIERS}>{renderOptions}</DropdownMenu>
@@ -64,12 +104,17 @@ BasicDropDown.propTypes = {
   options: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.node]),
+      value: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+        PropTypes.node,
+      ]),
       otherValue: PropTypes.any,
       header: PropTypes.bool,
       disabled: PropTypes.bool,
       divider: PropTypes.bool,
-    }).isRequired,
+      title: PropTypes.string,
+    }).isRequired
   ),
   onChange: PropTypes.func,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
@@ -77,7 +122,7 @@ BasicDropDown.propTypes = {
   // ---Dropdown---
   a11y: PropTypes.bool, // defaults to true. Set to false to enable more bootstrap like tabbing behavior
   disabled: PropTypes.bool,
-  direction: PropTypes.oneOf(['up', 'down', 'left', 'right']),
+  direction: PropTypes.oneOf(["up", "down", "left", "right"]),
   group: PropTypes.bool,
   isOpen: PropTypes.bool,
   // For Dropdown usage inside a Nav
@@ -95,8 +140,8 @@ BasicDropDown.propTypes = {
   className: PropTypes.string,
   disabled: PropTypes.bool,
   onClick: PropTypes.func,
-  'data-toggle': PropTypes.string,
-  'aria-haspopup': PropTypes.bool,
+  "data-toggle": PropTypes.string,
+  "aria-haspopup": PropTypes.bool,
   // For DropdownToggle usage inside a Nav
   nav: PropTypes.bool,
   // Defaults to Button component
@@ -130,8 +175,10 @@ BasicDropDown.propTypes = {
 
 BasicDropDown.defaultProps = {
   options: [],
-  direction: 'down',
-  value: 'value',
+  direction: "down",
+  value: "",
+  color: "primary",
+  caret: true,
 }
 
-export default BasicDropDown
+export default memo(BasicDropDown)

@@ -1,6 +1,6 @@
-import React, { useCallback , Profiler} from 'react'
+import React, { useCallback , Profiler } from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'context'
+import { connect } from 'ContextStore'
 import { BasicInput } from 'components'
 import { handleOnFormChange } from 'redux/Form/actions'
 import { InputProps } from 'components/BasicInput/propTypes'
@@ -37,4 +37,4 @@ ContextBasicInput.propTypes = {
   ...InputProps,
 }
 
-export default connect(FormWithUseContextAndReducerContext, mapStateToProps)(ContextBasicInput)
+export default connect(mapStateToProps, undefined, FormWithUseContextAndReducerContext)(ContextBasicInput)
