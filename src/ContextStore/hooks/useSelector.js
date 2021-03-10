@@ -1,15 +1,10 @@
-import { useContext, useMemo } from 'react';
-import usePreviousValue from './usePreviousValue';
-import { isFunction, shallowEquals } from '../utils';
-import { ContextConsumer } from '../provider';
+import { useContext, useMemo } from 'react'
+import usePreviousValue from './usePreviousValue'
+import { isFunction, shallowEquals } from '../utils'
+import { ContextConsumer } from '../provider'
 
-const defaultIsEqual = (
-  nextSelector,
-  previousSelector,
-) => shallowEquals(
-    previousSelector,
-    nextSelector,
-    );
+const defaultIsEqual = (nextSelector, previousSelector) =>
+  shallowEquals(previousSelector, nextSelector)
 
 /**
  * This hook simulates Redux's useSelector hook
@@ -26,24 +21,24 @@ const useSelector = (
   isEqual = defaultIsEqual,
   contextConsumer = ContextConsumer,
 ) => {
-  const { state } = useContext(contextConsumer);
+  const { state } = useContext(contextConsumer)
 
   const previousSelector = usePreviousValue(
     isFunction(mapStateToSelector) ? mapStateToSelector(state) : null,
-  );
+  )
 
   const selector = useMemo(() => {
     if (isEqual !== false && previousSelector) {
-      const nextSelector = mapStateToSelector(state);
-      const shouldUpdate = !isEqual(nextSelector, previousSelector);
+      const nextSelector = mapStateToSelector(state)
+      const shouldUpdate = !isEqual(nextSelector, previousSelector)
       if (shouldUpdate) {
-        return nextSelector;
+        return nextSelector
       }
     }
-    return previousSelector;
-  }, [state, isEqual]);
+    return previousSelector
+  }, [state, isEqual])
 
-  return selector;
-};
+  return selector
+}
 
-export default useSelector;
+export default useSelector

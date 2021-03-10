@@ -1,7 +1,9 @@
 import { createContext } from 'react'
 
-const FormWithUseContextAndReducerContext = createContext({})
+const FormWithUseContextAndReducerContext = createContext(null)
 
-export {
-  FormWithUseContextAndReducerContext,
+const FormWithUseContextAndReducerOptions = {
+  context: FormWithUseContextAndReducerContext,
 }
+
+export { FormWithUseContextAndReducerContext, FormWithUseContextAndReducerOptions }

@@ -4,7 +4,7 @@ import { connect } from 'ContextStore'
 import { BasicInput } from 'components'
 import { handleOnFormChange } from 'redux/Form/actions'
 import { InputProps } from 'components/BasicInput/propTypes'
-import { FormWithUseContextAndReducerContext } from 'context'
+import { FormWithUseContextAndReducerOptions } from 'context'
 
 // We are mapping into the values on individual input fields for atomicity
 const mapStateToProps = (state, ownProps) => {
@@ -25,8 +25,12 @@ const mapStateToProps = (state, ownProps) => {
   }
 }
 
-const ContextBasicInput = ({ reducerKey, fieldKey, dispatch, ...inputProps }) => {
-  const handleOnChange = useCallback(e => dispatch(handleOnFormChange('form2', e)), [])
+const mapDispatchToProps = {
+  handleOnFormChange
+}
+
+const ContextBasicInput = ({ reducerKey, fieldKey, handleOnFormChange, ...inputProps }) => {
+  const handleOnChange = useCallback(e => (handleOnFormChange('form2', e)), [])
 
   return <BasicInput {...inputProps} onChange={handleOnChange} />
 }
@@ -34,7 +38,8 @@ const ContextBasicInput = ({ reducerKey, fieldKey, dispatch, ...inputProps }) =>
 ContextBasicInput.propTypes = {
   reducerKey: PropTypes.string.isRequired,
   fieldKey: PropTypes.string.isRequired,
+  handleOnFormChange: PropTypes.func.isRequired,
   ...InputProps,
 }
 
-export default connect(mapStateToProps, undefined, FormWithUseContextAndReducerContext)(ContextBasicInput)
+export default connect(mapStateToProps, mapDispatchToProps, undefined, FormWithUseContextAndReducerOptions)(ContextBasicInput)
