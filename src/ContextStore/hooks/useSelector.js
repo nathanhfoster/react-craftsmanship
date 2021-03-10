@@ -28,7 +28,7 @@ const useSelector = (
   )
 
   const selector = useMemo(() => {
-    if (isEqual !== false && previousSelector) {
+    if (isEqual && previousSelector) {
       const nextSelector = mapStateToSelector(state)
       const shouldUpdate = !isEqual(nextSelector, previousSelector)
       if (shouldUpdate) {
