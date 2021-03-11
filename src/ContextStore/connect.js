@@ -62,12 +62,11 @@ const connect = (mapStateToProps, mapDispatchToProps, mergeProps, options) => Co
     areMergedPropsEqual = shallowEquals,
     // forwardRef = false,
   } = options || {}
-  // Conditionally Memoize Component
+  // Conditionally memoize Component
   const MemoizedComponent = pure === true ? memo(Component, areStatePropsEqual) : Component
   return ownProps => {
-    const { state, dispatch, augmentedDispatch } = useContext(context)
+    const { state, dispatch } = useContext(context)
 
-    // Memoize stateToProps
     const stateToProps = useMemo(() => {
       if (isFunction(mapStateToProps)) {
         return mapStateToProps(state, ownProps)
@@ -75,7 +74,6 @@ const connect = (mapStateToProps, mapDispatchToProps, mergeProps, options) => Co
       return {}
     }, [state, ownProps])
 
-    // Memoize globalDispatch
     const dispatchToProps = useMemo(() => {
       if (!mapDispatchToProps) {
         return {}

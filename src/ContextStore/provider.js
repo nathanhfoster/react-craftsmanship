@@ -1,15 +1,15 @@
 import React, { createContext, useEffect, useMemo } from 'react'
 import PropTypes from 'prop-types'
-import { combineReducers, shallowEquals } from './utils'
+import { combineReducers, getNextStateControlledFromProps, shallowEquals } from './utils'
 import useReducerWithThunk from './hooks/useReducerWithThunk'
 
 const storeFactory = () => ({
   isReady: false,
   dispatch: () => {
-    console.error('Store is NOT ready!')
+    throw Error('Store is NOT ready!')
   },
   getState: () => {
-    console.error('Store is NOT ready!')
+    throw Error('Store is NOT ready!')
   },
 })
 // Use this only if you want to use a global reducer for your whole app
@@ -20,8 +20,18 @@ const StateProvider = createContext(null)
 const defaultInitializer = state => state
 
 /**
+ * @typedef {Object} ContexStoreProps
+ * @property {Object} context - The last reference key to the form stored in a Redux reducer
+ * @property {Function|Object} reducers - first object to compare
+ * @property {Object=} initialState - the initial state of the reducer
+ * @property {Object=} props - passed from an HOC that controlls the state of the store
+ * @property {Function=} initializer - utility function that sets the initial state of the reducer
+ * @property {React.ReactElement} children - the child components of the store
+ */
+
+/**
  * Context Store Factory that simulates Redux's createStore API
- * @param {Object} props - ContextStore props
+ * @param {ContexStoreProps} props - ContextStore props
  * @returns {React.ContextProvider} - a React Context with the store as it's value
  */
 const ContextStore = ({
@@ -32,14 +42,11 @@ const ContextStore = ({
   initializer,
   children,
 }) => {
-  // call the function to get initial state and global reducer
-  const [mainState, mainReducer] = useMemo(
-    () => combineReducers(reducers, initialState || props),
-    [],
-  )
+  // call the function once to get initial state and global reducer
+  const [mainState, mainReducer] = useMemo(() => combineReducers(reducers, initialState), [])
 
   // setup useReducer with the returned values of the combineReducers
-  const [state, dispatch] = useReducerWithThunk(mainReducer, mainState, initializer)
+  const [state, dispatch] = useReducerWithThunk(mainReducer, mainState, initializer, props)
 
   // Update store object to potentially access it outside of a component
   useEffect(() => {
@@ -60,12 +67,7 @@ const ContextStore = ({
   // make our context object value
   const contextValue = useMemo(
     () => ({
-      state: {
-        ...state,
-        ...(props && {
-          ...props,
-        }),
-      },
+      state: getNextStateControlledFromProps(state, props),
       dispatch,
     }),
     [state, props, dispatch],
