@@ -1,6 +1,6 @@
 import React, { createContext, useLayoutEffect, useMemo } from 'react'
 import PropTypes from 'prop-types'
-import { combineReducers, getNextStateControlledFromProps, shallowEquals } from './utils'
+import { combineReducers, deriveStateFromProps, shallowEquals } from './utils'
 import useReducerWithThunk from './hooks/useReducerWithThunk'
 
 const storeFactory = () => ({
@@ -67,7 +67,7 @@ const ContextStore = ({
   // make our context object value
   const contextValue = useMemo(
     () => ({
-      state: getNextStateControlledFromProps(state, props),
+      state: deriveStateFromProps(state, props),
       dispatch,
     }),
     [state, props, dispatch],

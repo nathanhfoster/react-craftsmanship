@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { isFunction, getNextStateControlledFromProps } from '../utils'
+import { isFunction, deriveStateFromProps } from '../utils'
 /**
  * @function Thunk
  * @param {Dispatch} dispatch
@@ -39,7 +39,7 @@ const useReducerWithThunk = (reducer, initialState, initializer = state => state
 
   useEffect(() => {
     if (state.current) {
-      state.current = getNextStateControlledFromProps(state.current, props)
+      state.current = deriveStateFromProps(state.current, props)
     }
   }, [props])
 
@@ -47,7 +47,7 @@ const useReducerWithThunk = (reducer, initialState, initializer = state => state
 
   const setState = useCallback(
     newState => {
-      state.current = getNextStateControlledFromProps(newState, props)
+      state.current = deriveStateFromProps(newState, props)
       setHookState(newState)
     },
     [state, props, setHookState],
