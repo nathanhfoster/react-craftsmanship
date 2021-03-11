@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useMemo } from 'react'
+import React, { createContext, useLayoutEffect, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { combineReducers, getNextStateControlledFromProps, shallowEquals } from './utils'
 import useReducerWithThunk from './hooks/useReducerWithThunk'
@@ -49,7 +49,7 @@ const ContextStore = ({
   const [state, dispatch] = useReducerWithThunk(mainReducer, mainState, initializer, props)
 
   // Update store object to potentially access it outside of a component
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!store.isReady) {
       store.isReady = true
       store.dispatch = dispatch
