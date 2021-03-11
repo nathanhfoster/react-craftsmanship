@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { isFunction, deriveStateFromProps } from '../utils'
+import { isFunction, getDerivedStateFromProps } from '../utils'
 /**
  * @function Thunk
  * @param {Dispatch} dispatch
@@ -14,8 +14,7 @@ import { isFunction, deriveStateFromProps } from '../utils'
  */
 
 /**
- * Augments React's useReducer() hook so that the action
- * dispatcher supports thunks.
+ * Augments React's useReducer() hook so that the action dispatcher supports thunks.
  * @param {Function} reducer - reducer
  * @param {Object=} initialState - initialState
  * @param {Function=} initializer - initializer
@@ -39,7 +38,7 @@ const useReducerWithThunk = (reducer, initialState, initializer = state => state
 
   useEffect(() => {
     if (state.current) {
-      state.current = deriveStateFromProps(state.current, props)
+      state.current = getDerivedStateFromProps(state.current, props)
     }
   }, [props])
 
@@ -47,7 +46,7 @@ const useReducerWithThunk = (reducer, initialState, initializer = state => state
 
   const setState = useCallback(
     newState => {
-      state.current = deriveStateFromProps(newState, props)
+      state.current = getDerivedStateFromProps(newState, props)
       setHookState(newState)
     },
     [state, props, setHookState],

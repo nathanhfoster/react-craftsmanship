@@ -4,7 +4,7 @@
  * @param {Object=} props - props to make the state controlled from a HOC
  * @returns {Object} - the new merged state
  */
-const deriveStateFromProps = (state, props) => ({
+const getDerivedStateFromProps = (state, props) => ({
   ...(state && {
     ...state,
   }),
@@ -13,4 +13,4 @@ const deriveStateFromProps = (state, props) => ({
   }),
 })
 
-export default deriveStateFromProps
+export default getDerivedStateFromProps
