@@ -1,6 +1,7 @@
-import React, { createContext, useReducer, useEffect, useMemo } from 'react'
+import React, { createContext, useEffect, useMemo } from 'react'
 import PropTypes from 'prop-types'
-import { isFunction, combineReducers, shallowEquals, augmentDispatch } from './utils'
+import { combineReducers, shallowEquals } from './utils'
+import useReducerWithThunk from './hooks/useReducerWithThunk'
 
 const storeFactory = () => ({
   isReady: false,
@@ -38,21 +39,20 @@ const ContextStore = ({
   )
 
   // setup useReducer with the returned values of the combineReducers
-  const [state, dispatch] = useReducer(mainReducer, mainState, initializer)
+  const [state, dispatch] = useReducerWithThunk(mainReducer, mainState, initializer)
 
-  const augmentedDispatch = augmentDispatch(dispatch, state)
   // Update store object to potentially access it outside of a component
   useEffect(() => {
     if (!store.isReady) {
       store.isReady = true
-      store.dispatch = augmentedDispatch
+      store.dispatch = dispatch
       store.getState = () => state
       // Object.freeze(store) // don't freeze the object, or store.isReady can't be re-assigned
     }
     return () => {
       store.isReady = false
     }
-  }, [state, augmentedDispatch])
+  }, [state, dispatch])
 
   /* Overwriting the reducer state with props allows this component
    * to be both controlled if props are passed
@@ -67,9 +67,8 @@ const ContextStore = ({
         }),
       },
       dispatch,
-      augmentedDispatch,
     }),
-    [state, props, augmentedDispatch],
+    [state, props, dispatch],
   )
 
   return <Context.Provider value={contextValue}>{children}</Context.Provider>

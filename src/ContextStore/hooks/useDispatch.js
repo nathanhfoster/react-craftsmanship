@@ -7,10 +7,6 @@ import { ContextConsumer } from '../provider'
  * @param {Boolean=} shouldReturnAugment - return the augmented dispatch or the default one
  * @returns {Function} - the context's dispatch API
  * */
-const useDispatch = (contextConsumer = ContextConsumer, shouldReturnAugment = true) => {
-  const { dispatch, augmentedDispatch } = useContext(contextConsumer)
-
-  return shouldReturnAugment ? augmentedDispatch : dispatch
-}
+const useDispatch = (contextConsumer = ContextConsumer) => useContext(contextConsumer).dispatch
 
 export default useDispatch

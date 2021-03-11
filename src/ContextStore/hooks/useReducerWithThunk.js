@@ -1,6 +1,5 @@
 import { useCallback, useRef, useState } from 'react'
 import { isFunction } from '../utils'
-
 /**
  * @function Thunk
  * @param {Dispatch} dispatch
@@ -17,14 +16,13 @@ import { isFunction } from '../utils'
 /**
  * Augments React's useReducer() hook so that the action
  * dispatcher supports thunks.
- *
- * @param {Function} reducer
- * @param {*} initialArg
- * @param {Function} [init]
- * @returns {[*, Dispatch]}
+ * @param {Function} reducer - reducer
+ * @param {*} initialState - initialState
+ * @param {Function} initializer - initializer
+ * @returns {Array.<*, Dispatch>} - the new useReducer hook
  */
-const useThunkReducer = (reducer, initialArg, init = a => a) => {
-  const [hookState, setHookState] = useState(init(initialArg))
+const useReducerWithThunk = (reducer, initialState, initializer = state => state) => {
+  const [hookState, setHookState] = useState(initializer(initialState))
 
   // State management
   const state = useRef(hookState)
@@ -43,7 +41,10 @@ const useThunkReducer = (reducer, initialArg, init = a => a) => {
   // Augmented dispatcher
   const dispatch = useCallback(
     action => {
-      return isFunction(action) ? action(dispatch, getState) : setState(reduce(action))
+      if (isFunction(action)) {
+        return action(dispatch, getState)
+      }
+      return setState(reduce(action))
     },
     [getState, setState, reduce],
   )
@@ -51,4 +52,4 @@ const useThunkReducer = (reducer, initialArg, init = a => a) => {
   return [hookState, dispatch]
 }
 
-export default useThunkReducer
+export default useReducerWithThunk
