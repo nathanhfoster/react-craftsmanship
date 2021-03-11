@@ -79,10 +79,10 @@ const connect = (mapStateToProps, mapDispatchToProps, mergeProps, options) => Co
         return {}
       }
       if (isFunction(mapDispatchToProps)) {
-        return mapDispatchToProps(dispatch, ownProps, state)
+        return mapDispatchToProps(dispatch, ownProps)
       }
-      return bindActionCreators(mapDispatchToProps, dispatch, state)
-    }, [state, ownProps])
+      return bindActionCreators(mapDispatchToProps, dispatch)
+    }, [dispatch, ownProps])
 
     const prevMergeProps = usePreviousValue(mergeProps)
 
