@@ -1,5 +1,14 @@
 import { useMemo, useReducer, useRef, useCallback, useEffect } from 'react'
 import { isFunction, getDerivedStateFromProps, defaultInitializer } from '../utils'
+
+/**
+ * Mimics React.Component this.setState
+ * @param {Object} prevState - the reducer's previous state
+ * @param {Object} nextState - the state to overwrite
+ * @returns {Object} - the next state for the reducer
+ */
+const setStateHookReducer = (prevState, nextState) => ({ ...prevState, ...nextState })
+
 /**
  * @function Thunk
  * @param {Dispatch} dispatch
@@ -12,14 +21,6 @@ import { isFunction, getDerivedStateFromProps, defaultInitializer } from '../uti
  * @param {Object|Thunk} action
  * @returns {void|*}
  */
-
-/**
- * Mimics React.Component this.setState
- * @param {Object} prevState - the reducer's previous state
- * @param {Object} nextState - the state to overwrite
- * @returns {Object} - the next state for the reducer
- */
-const setStateHookReducer = (prevState, nextState) => ({ ...prevState, ...nextState })
 
 /**
  * Augments React's useReducer() hook so that the action dispatcher supports thunks.

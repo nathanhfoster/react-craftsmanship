@@ -1,6 +1,6 @@
-import { FormActionTypes } from './types'
+import { FormActionTypes } from "./types"
 
-const setNumberOfInputFields = payload => ({
+const setNumberOfInputFields = (payload) => ({
   type: FormActionTypes.FORM_SET_NUMBER_OF_INPUT_FIELDS,
   payload,
 })
@@ -10,11 +10,24 @@ const toggleShouldMemoizeInputFields = () => ({
 })
 
 // Destructure event.target
-const handleOnFormChange = (formKey, { target: { id, name, value, type, checked, files } }) => ({
-  type: FormActionTypes.FORM_ON_CHANGE,
+const handleOnFormChange = (
   formKey,
-  fieldKey: name,
-  payload: type === 'file' ? files : type === 'checkbox' || type === 'radio' ? checked : value,
-})
+  { target: { id, name, value, type, checked, files } }
+) => {
+  let payload = value
+  if (type === "checkbox" || type === "radio") {
+    payload = checked
+  }
+  return {
+    type: FormActionTypes.FORM_ON_CHANGE,
+    formKey,
+    fieldKey: name,
+    payload,
+  }
+}
 
-export { setNumberOfInputFields, toggleShouldMemoizeInputFields, handleOnFormChange }
+export {
+  setNumberOfInputFields,
+  toggleShouldMemoizeInputFields,
+  handleOnFormChange,
+}
