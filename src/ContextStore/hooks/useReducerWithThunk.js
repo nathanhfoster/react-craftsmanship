@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useReducer, useRef } from 'react'
 import { isFunction, getDerivedStateFromProps, defaultInitializer } from '../utils'
 /**
  * @function Thunk
@@ -14,6 +14,14 @@ import { isFunction, getDerivedStateFromProps, defaultInitializer } from '../uti
  */
 
 /**
+ * Mimics React.Component this.setState
+ * @param {Object} prevState - the reducer's previous state
+ * @param {Object} nextState - the state to overwrite
+ * @returns {Object} - the next state for the reducer
+ */
+const setStateHookReducer = (prevState, nextState) => ({ ...prevState, ...nextState })
+
+/**
  * Augments React's useReducer() hook so that the action dispatcher supports thunks.
  * @param {Function} reducer - reducer
  * @param {Object=} initialState - initialState
@@ -22,18 +30,14 @@ import { isFunction, getDerivedStateFromProps, defaultInitializer } from '../uti
  * @returns {Array.<*, Dispatch>} - the new useReducer hook
  */
 const useReducerWithThunk = (reducer, initialState, initializer = defaultInitializer, props) => {
-  const [hookState, setHookState] = useState(() =>
-    initializer(getDerivedStateFromProps(initialState, props)),
+  const [hookState, setHookState] = useReducer(
+    setStateHookReducer,
+    getDerivedStateFromProps(initialState, props),
+    initializer,
   )
 
   // State management
   const state = useRef(hookState)
-
-  useEffect(() => {
-    if (state.current) {
-      state.current = getDerivedStateFromProps(state.current, props)
-    }
-  }, [props])
 
   const getState = useCallback(() => state.current, [state])
 
@@ -45,6 +49,13 @@ const useReducerWithThunk = (reducer, initialState, initializer = defaultInitial
     },
     [props, setHookState],
   )
+
+  useEffect(() => {
+    if (state.current) {
+      state.current = getDerivedStateFromProps(state.current, props)
+      setHookState(props)
+    }
+  }, [props])
 
   // Reducer
   const reduce = useCallback(action => reducer(getState(), action), [reducer, getState])
