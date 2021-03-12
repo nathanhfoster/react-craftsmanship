@@ -33,6 +33,7 @@ const useReducerWithThunk = (reducer, initialState, initializer = defaultInitial
   const initialHookState = useMemo(() => getDerivedStateFromProps(initialState, props), [])
 
   const [hookState, setHookState] = useReducer(setStateHookReducer, initialHookState, initializer)
+  
   // State management
   const state = useRef(hookState)
 

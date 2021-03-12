@@ -79,10 +79,10 @@ const connect = (mapStateToProps, mapDispatchToProps, mergeProps, options) => Co
         return {}
       }
       if (isFunction(mapDispatchToProps)) {
-        return mapDispatchToProps(dispatch, ownProps)
+        return mapDispatchToProps(dispatch)
       }
       return bindActionCreators(mapDispatchToProps, dispatch)
-    }, [dispatch, ownProps])
+    }, [dispatch])
 
     const prevMergeProps = usePreviousValue(mergeProps)
 
@@ -104,12 +104,14 @@ const connect = (mapStateToProps, mapDispatchToProps, mergeProps, options) => Co
       [prevMergeProps],
     )
 
-    return (
-      <MemoizedComponent
-        {...handleMergeProps(stateToProps, dispatchToProps, ownProps)}
-        dispatch={dispatch}
-      />
-    )
+    const mergedProps = useMemo(() => handleMergeProps(stateToProps, dispatchToProps, ownProps), [
+      ownProps,
+      handleMergeProps,
+      stateToProps,
+      dispatchToProps,
+    ])
+
+    return <MemoizedComponent {...mergedProps} dispatch={dispatch} />
   }
 }
 

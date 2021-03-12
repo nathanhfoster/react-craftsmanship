@@ -1,4 +1,4 @@
-import React, { useCallback , Profiler } from 'react'
+import React, { useCallback, Profiler } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'ContextStore'
 import { BasicInput } from 'components'
@@ -26,13 +26,13 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = {
-  handleOnFormChange
+  handleOnFormChange,
 }
 
 const ContextBasicInput = ({ reducerKey, fieldKey, handleOnFormChange, ...inputProps }) => {
-  const handleOnChange = useCallback(e => (handleOnFormChange('form2', e)), [])
+  const handleOnChange = useCallback(e => handleOnFormChange('form2', e), [])
 
-  return <BasicInput {...inputProps} onChange={handleOnChange} />
+  return <BasicInput id='ContextBasicInput' {...inputProps} onChange={handleOnChange} />
 }
 
 ContextBasicInput.propTypes = {
@@ -42,4 +42,9 @@ ContextBasicInput.propTypes = {
   ...InputProps,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps, undefined, FormWithUseContextAndReducerOptions)(ContextBasicInput)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+  undefined,
+  FormWithUseContextAndReducerOptions,
+)(ContextBasicInput)

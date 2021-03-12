@@ -29,7 +29,7 @@ const BasicInput = ({
   options,
   ...restOfProps
 }) => {
-  console.log(`${name} rendered`)
+  console.log(`${id}-${name} rendered`)
   const isCheckOrRadio = type === 'checkbox' || type === 'radio'
 
   const valid = restOfProps.valid || (typeof isValid === 'function' && isValid(value))

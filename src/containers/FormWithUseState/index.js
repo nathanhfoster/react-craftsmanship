@@ -26,6 +26,7 @@ const FormWithUseState = ({
   const renderInputFields = Object.entries(form1).map(([key, input]) => {
     const inputProps = {
       ...input,
+      id: 'FormWithUseState',
       name: key,
       key,
       onChange: handleOnChange,
