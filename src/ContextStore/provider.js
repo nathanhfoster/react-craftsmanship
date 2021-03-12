@@ -1,23 +1,21 @@
-import React, { createContext, useLayoutEffect, useMemo } from 'react';
-import PropTypes from 'prop-types';
-import { combineReducers, shallowEquals } from './utils';
-import useReducerWithThunk from './hooks/useReducerWithThunk';
+import React, { createContext, useLayoutEffect, useMemo } from 'react'
+import PropTypes from 'prop-types'
+import { combineReducers, shallowEquals, defaultInitializer } from './utils'
+import useReducerWithThunk from './hooks/useReducerWithThunk'
 
 const storeFactory = () => ({
   isReady: false,
   dispatch: () => {
-    throw Error('Store is NOT ready!');
+    throw Error('Store is NOT ready!')
   },
   getState: () => {
-    throw Error('Store is NOT ready!');
+    throw Error('Store is NOT ready!')
   },
-});
+})
 // Use this only if you want to use a global reducer for your whole app
-const store = storeFactory();
+const store = storeFactory()
 
-const StateProvider = createContext(null);
-
-const defaultInitializer = state => state;
+const StateProvider = createContext(null)
 
 /**
  * @typedef {Object} ContexStoreProps
@@ -43,23 +41,23 @@ const ContextStore = ({
   children,
 }) => {
   // call the function once to get initial state and global reducer
-  const [mainState, mainReducer] = useMemo(() => combineReducers(reducers, initialState), []);
+  const [mainState, mainReducer] = useMemo(() => combineReducers(reducers, initialState), [])
 
   // setup useReducer with the returned values of the combineReducers
-  const [state, dispatch] = useReducerWithThunk(mainReducer, mainState, initializer, props);
+  const [state, dispatch] = useReducerWithThunk(mainReducer, mainState, initializer, props)
 
   // Update store object to potentially access it outside of a component
   useLayoutEffect(() => {
     if (!store.isReady) {
-      store.isReady = true;
-      store.dispatch = dispatch;
-      store.getState = () => state;
+      store.isReady = true
+      store.dispatch = dispatch
+      store.getState = () => state
       // Object.freeze(store) // don't freeze the object, or store.isReady can't be re-assigned
     }
     return () => {
-      store.isReady = false;
-    };
-  }, [state, dispatch]);
+      store.isReady = false
+    }
+  }, [state, dispatch])
 
   // make the context object value
   const contextValue = useMemo(
@@ -68,10 +66,10 @@ const ContextStore = ({
       dispatch,
     }),
     [state, dispatch],
-  );
+  )
 
-  return <Context.Provider value={contextValue}>{children}</Context.Provider>;
-};
+  return <Context.Provider value={contextValue}>{children}</Context.Provider>
+}
 
 ContextStore.propTypes = {
   context: PropTypes.shape({}),
@@ -95,20 +93,20 @@ ContextStore.propTypes = {
     PropTypes.arrayOf(PropTypes.object),
     PropTypes.arrayOf(PropTypes.elementType),
   ]).isRequired,
-};
+}
 
 ContextStore.defaultProps = {
   context: StateProvider,
   initializer: defaultInitializer,
   initialState: undefined,
   props: undefined,
-};
+}
 
-const MemoizedContextProvider = React.memo(ContextStore, shallowEquals);
+const MemoizedContextProvider = React.memo(ContextStore, shallowEquals)
 
 export {
   StateProvider as ContextConsumer,
   ContextStore as ContextProvider,
   MemoizedContextProvider,
   store,
-};
+}
