@@ -1,6 +1,6 @@
 import React, { createContext, useLayoutEffect, useMemo } from 'react'
 import PropTypes from 'prop-types'
-import { combineReducers, getDerivedStateFromProps, shallowEquals } from './utils'
+import { combineReducers, shallowEquals } from './utils'
 import useReducerWithThunk from './hooks/useReducerWithThunk'
 
 const storeFactory = () => ({
@@ -43,7 +43,7 @@ const ContextStore = ({
   children,
 }) => {
   // call the function once to get initial state and global reducer
-  const [mainState, mainReducer] = useMemo(() => combineReducers(reducers, initialState), [])
+  const [mainState, mainReducer] = useMemo(() => combineReducers(reducers, initialState), [initialState, reducers])
 
   // setup useReducer with the returned values of the combineReducers
   const [state, dispatch] = useReducerWithThunk(mainReducer, mainState, initializer, props)
@@ -61,16 +61,13 @@ const ContextStore = ({
     }
   }, [state, dispatch])
 
-  /* Overwriting the reducer state with props allows this component
-   * to be both controlled if props are passed
-   * or uncontrolled by default */
-  // make our context object value
+  // make the context object value
   const contextValue = useMemo(
     () => ({
-      state: getDerivedStateFromProps(state, props),
+      state,
       dispatch,
     }),
-    [state, props, dispatch],
+    [state, dispatch],
   )
 
   return <Context.Provider value={contextValue}>{children}</Context.Provider>
