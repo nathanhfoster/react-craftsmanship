@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useReducer, useRef } from 'react'
+import { useMemo, useReducer, useRef, useCallback, useEffect } from 'react'
 import { isFunction, getDerivedStateFromProps, defaultInitializer } from '../utils'
 /**
  * @function Thunk
@@ -30,12 +30,9 @@ const setStateHookReducer = (prevState, nextState) => ({ ...prevState, ...nextSt
  * @returns {Array.<*, Dispatch>} - the new useReducer hook
  */
 const useReducerWithThunk = (reducer, initialState, initializer = defaultInitializer, props) => {
-  const [hookState, setHookState] = useReducer(
-    setStateHookReducer,
-    getDerivedStateFromProps(initialState, props),
-    initializer,
-  )
+  const initialHookState = useMemo(() => getDerivedStateFromProps(initialState, props), [])
 
+  const [hookState, setHookState] = useReducer(setStateHookReducer, initialHookState, initializer)
   // State management
   const state = useRef(hookState)
 
@@ -50,13 +47,6 @@ const useReducerWithThunk = (reducer, initialState, initializer = defaultInitial
     [props, setHookState],
   )
 
-  useEffect(() => {
-    if (state.current) {
-      state.current = getDerivedStateFromProps(state.current, props)
-      setHookState(props)
-    }
-  }, [props])
-
   // Reducer
   const reduce = useCallback(action => reducer(getState(), action), [reducer, getState])
 
@@ -70,6 +60,13 @@ const useReducerWithThunk = (reducer, initialState, initializer = defaultInitial
     },
     [getState, setState, reduce],
   )
+
+  useEffect(() => {
+    if (state.current) {
+      state.current = getDerivedStateFromProps(state.current, props)
+      setHookState(props)
+    }
+  }, [props])
 
   return [hookState, dispatch]
 }
