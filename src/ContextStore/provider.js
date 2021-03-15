@@ -60,7 +60,7 @@ const ContextStore = ({
   }, [state, dispatch])
 
   // make the context object value
-  const contextValue = useMemo(
+  const contextStore = useMemo(
     () => ({
       state,
       dispatch,
@@ -68,7 +68,7 @@ const ContextStore = ({
     [state, dispatch],
   )
 
-  return <Context.Provider value={contextValue}>{children}</Context.Provider>
+  return <Context.Provider value={contextStore}>{children}</Context.Provider>
 }
 
 ContextStore.propTypes = {
