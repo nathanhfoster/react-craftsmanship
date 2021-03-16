@@ -1,8 +1,8 @@
-import React, { useCallback, useMemo } from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { BasicInput } from 'components'
-import { toggleShouldMemoizeInputFields } from '../../redux/Form/actions'
+import React, { useCallback, useMemo } from "react"
+import PropTypes from "prop-types"
+import { connect } from "react-redux"
+import { BasicInput } from "components"
+import { toggleShouldMemoizeInputFields } from "../../redux/Form/actions"
 
 const mapStateToProps = ({ Forms: { shouldMemoizeInputFields } }) => ({
   shouldMemoizeInputFields,
@@ -10,7 +10,10 @@ const mapStateToProps = ({ Forms: { shouldMemoizeInputFields } }) => ({
 
 const mapDispatchToProps = { toggleShouldMemoizeInputFields }
 
-const ShouldMemoizeComponents = ({ shouldMemoizeInputFields, toggleShouldMemoizeInputFields }) => {
+const ShouldMemoizeComponents = ({
+  shouldMemoizeInputFields,
+  toggleShouldMemoizeInputFields,
+}) => {
   const handleSetNumberOfInputFields = useCallback(() => {
     toggleShouldMemoizeInputFields()
   }, [])
@@ -18,20 +21,24 @@ const ShouldMemoizeComponents = ({ shouldMemoizeInputFields, toggleShouldMemoize
   const renderCheckBox = useMemo(
     () => (
       <BasicInput
-        type='checkbox'
-        label='Memoize Input Fields'
-        name='shouldMemoizeInputFields'
+        id="ShouldMemoizeComponents"
+        type="checkbox"
+        label="Memoize Input Fields"
+        name="shouldMemoizeInputFields"
         onChange={handleSetNumberOfInputFields}
         value={shouldMemoizeInputFields}
       />
     ),
-    [shouldMemoizeInputFields],
+    [shouldMemoizeInputFields]
   )
 
   return renderCheckBox
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ShouldMemoizeComponents)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ShouldMemoizeComponents)
 
 ShouldMemoizeComponents.propTypes = {
   shouldMemoizeInputFields: PropTypes.bool.isRequired,
