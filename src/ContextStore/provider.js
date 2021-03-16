@@ -1,7 +1,9 @@
-import React, { createContext, useLayoutEffect, useMemo } from 'react'
+import React, { createContext, useRef, useLayoutEffect, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { combineReducers, shallowEquals, defaultInitializer } from './utils'
+import useLazyMemo from './hooks/useLazyMemo'
 import useReducerWithThunk from './hooks/useReducerWithThunk'
+import './types'
 
 const storeFactory = () => ({
   isReady: false,
@@ -18,21 +20,12 @@ const store = storeFactory()
 const StateProvider = createContext(null)
 
 /**
- * @typedef {Object} ContexStoreProps
- * @property {Object} context - The last reference key to the form stored in a Redux reducer
- * @property {Function|Object} reducers - first object to compare
- * @property {Object=} initialState - the initial state of the reducer
- * @property {Object=} props - passed from an HOC that controlls the state of the store
- * @property {Function=} initializer - utility function that sets the initial state of the reducer
- * @property {React.ReactElement} children - the child components of the store
- */
-
-/**
  * Context Store Factory that simulates Redux's createStore API
  * @param {ContexStoreProps} props - ContextStore props
  * @returns {React.ContextProvider} - a React Context with the store as it's value
  */
 const ContextStore = ({
+  name,
   context: Context,
   reducers,
   initialState,
@@ -41,10 +34,12 @@ const ContextStore = ({
   children,
 }) => {
   // call the function once to get initial state and global reducer
-  const [mainState, mainReducer] = useMemo(() => combineReducers(reducers, initialState), [])
+  const [mainState, mainReducer] = useLazyMemo(() => combineReducers(reducers, initialState))
 
   // setup useReducer with the returned values of the combineReducers
   const [state, dispatch] = useReducerWithThunk(mainReducer, mainState, initializer, props)
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
 
   // Update store object to potentially access it outside of a component
   useLayoutEffect(() => {
@@ -68,10 +63,28 @@ const ContextStore = ({
     [state, dispatch],
   )
 
+  const warnedAboutMissingDevToolRef = useRef(false)
+
+  useLayoutEffect(() => {
+    // eslint-disable-next-line
+    if (typeof window !== 'undefined' && window._REACT_CONTEXT_DEVTOOL) {
+      // eslint-disable-next-line
+      window._REACT_CONTEXT_DEVTOOL({ id: name, displayName: name, values: contextStore })
+    } else if (!warnedAboutMissingDevToolRef.current) {
+      warnedAboutMissingDevToolRef.current = true
+      // eslint-disable-next-line
+      console.log(
+        '%cConsider installing "React Context DevTool" in order to inspect the Wisteria state',
+        'color:#1dbf73',
+      )
+    }
+  }, [contextStore, name])
+
   return <Context.Provider value={contextStore}>{children}</Context.Provider>
 }
 
 ContextStore.propTypes = {
+  name: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   context: PropTypes.shape({}),
   reducers: PropTypes.oneOfType([PropTypes.func, PropTypes.objectOf(PropTypes.func)]).isRequired,
   initialState: PropTypes.shape({}),
@@ -96,6 +109,7 @@ ContextStore.propTypes = {
 }
 
 ContextStore.defaultProps = {
+  name: parseInt(1000 + Math.random() * 1000, 10),
   context: StateProvider,
   initializer: defaultInitializer,
   initialState: undefined,
