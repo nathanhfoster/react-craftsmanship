@@ -1,6 +1,6 @@
 import React, { createContext, useRef, useLayoutEffect, useMemo } from 'react'
 import PropTypes from 'prop-types'
-import { combineReducers, shallowEquals, defaultInitializer } from './utils'
+import { combineReducers, shallowEquals, defaultInitializer, getRandomInt } from './utils'
 import useLazyMemo from './hooks/useLazyMemo'
 import useReducerWithThunk from './hooks/useReducerWithThunk'
 import './types'
@@ -73,7 +73,7 @@ const ContextStore = ({
     } else if (!warnedAboutMissingDevToolRef.current) {
       warnedAboutMissingDevToolRef.current = true
       // eslint-disable-next-line
-      console.log(
+      console.info(
         '%cConsider installing "React Context DevTool" in order to inspect the Wisteria state',
         'color:#1dbf73',
       )
@@ -109,7 +109,7 @@ ContextStore.propTypes = {
 }
 
 ContextStore.defaultProps = {
-  name: parseInt(1000 + Math.random() * 1000, 10),
+  name: getRandomInt(0, 1000),
   context: StateProvider,
   initializer: defaultInitializer,
   initialState: undefined,
