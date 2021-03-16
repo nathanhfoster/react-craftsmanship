@@ -35,14 +35,27 @@ const App = () => {
           Check out the
           <a
             className='ml-1'
-            href='https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en'
+            href='https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd'
             target='_blank'
             rel='noopener noreferrer'
           >
             {' '}
-            Redux Devool
+            Redux DevTool
           </a>{' '}
           to visiualize the redux store
+        </Col>
+        <Col tag='h3' xs={12}>
+          Check out the
+          <a
+            className='ml-1'
+            href='https://chrome.google.com/webstore/detail/react-context-devtool/oddhnidmicpefilikhgeagedibnefkcf'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            {' '}
+            React Context DevTool
+          </a>{' '}
+          to visiualize the context store
         </Col>
       </Row>
       <Row tag='h4' className='justify-content-center'>
@@ -57,18 +70,18 @@ const App = () => {
         </a>
       </Row>
       <Row className='justify-content-center'>
-         <Col>
-           <iframe
-             className='embed-responsive embed-responsive-16by9'
-             title='Visualize The Power Of Redux and Memoizationi In React'
-             width={560}
-             height={315}
-             src='https://www.youtube.com/embed/KypVn6vGFWg'
-             frameBorder='0'
-             allow='accelerometer autoplay clipboard-write encrypted-media gyroscope picture-in-picture'
-             allowFullScreen
-           />
-         </Col>
+        <Col>
+          <iframe
+            className='embed-responsive embed-responsive-16by9'
+            title='Visualize The Power Of Redux and Memoizationi In React'
+            width={560}
+            height={315}
+            src='https://www.youtube.com/embed/KypVn6vGFWg'
+            frameBorder='0'
+            allow='accelerometer autoplay clipboard-write encrypted-media gyroscope picture-in-picture'
+            allowFullScreen
+          />
+        </Col>
       </Row>
 
       <Row className='my-3'>
