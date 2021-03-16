@@ -78,7 +78,7 @@ const ContextStore = ({
         'color:#1dbf73',
       )
     }
-  }, [contextStore, name])
+  }, [contextStore])
 
   return <Context.Provider value={contextStore}>{children}</Context.Provider>
 }
