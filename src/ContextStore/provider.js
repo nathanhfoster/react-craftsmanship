@@ -48,8 +48,6 @@ const ContextStore = ({
   // setup useReducer with the returned values of the combineReducers
   const [state, dispatch] = useReducerWithThunk(mainReducer, mainState, initializer, props)
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-
   // Update store object to potentially access it outside of a component
   useLayoutEffect(() => {
     if (!store.isReady) {
