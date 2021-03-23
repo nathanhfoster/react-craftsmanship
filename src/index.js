@@ -7,7 +7,7 @@ import { LoadingScreen } from "components"
 import storeFactory from "./redux"
 import { reducers } from "./redux/reducers"
 import { Provider } from "react-redux"
-import { ContextProvider } from "ContextStore"
+import { ContextProvider } from "resurrection"
 import * as serviceWorker from "./serviceWorker"
 
 const store = storeFactory()
