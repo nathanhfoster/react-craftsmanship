@@ -15,7 +15,7 @@
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
-    "resurrection": "^1.0.20"
+    "resurrection": "^1.0.28"
   },
   "scripts": {
     "start": "react-scripts start",
