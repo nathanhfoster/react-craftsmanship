@@ -4,13 +4,13 @@ import "index.css"
 import { FormWithUseContextAndReducerProvider } from "providers"
 import App from "App"
 import { LoadingScreen } from "components"
-import storeFactory from "./redux"
+import reduxStoreFactory from "./redux"
 import { reducers } from "./redux/reducers"
 import { Provider } from "react-redux"
 import { ContextProvider } from "resurrection"
 import * as serviceWorker from "./serviceWorker"
 
-const store = storeFactory()
+const store = reduxStoreFactory()
 
 ReactDOM.render(
   <Provider store={store}>
