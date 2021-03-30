@@ -1,14 +1,13 @@
 import React from "react"
 import { MemoizedContextProvider } from "resurrection"
 import { FormWithUseContextAndReducerContext } from "context"
-import { Forms, DEFAULT_STATE_FORMS } from "redux/Form/reducer"
+import { Forms } from "redux/Form/reducer"
 
 const FormWithUseContextAndReducerProvider = ({ children }) => (
   <MemoizedContextProvider
     name="formWithUseContextAndUseReducer"
     context={FormWithUseContextAndReducerContext}
     reducers={Forms}
-    initialState={DEFAULT_STATE_FORMS}
   >
     {children}
   </MemoizedContextProvider>
