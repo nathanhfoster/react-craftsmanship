@@ -9,8 +9,8 @@ import { InputProps } from 'components/BasicInput/propTypes'
 const mapStateToProps = ({ Forms }, { reducerKey, fieldKey }) => {
   const form = Forms[reducerKey]
   const inputField = form[fieldKey]
-  const { fieldDependencies, ...restOfInputProps } = inputField
-  const invalid = fieldDependencies.some(fieldKey => {
+  const { fieldDependencies, ...restOfInputProps } = inputField || {}
+  const invalid = fieldDependencies?.some(fieldKey => {
     const { isInvalid, value } = form[fieldKey]
 
     return isInvalid(value)

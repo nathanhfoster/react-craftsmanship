@@ -15,7 +15,7 @@ const FormWithUseContextAndReducerOptions = {
 const FormInputWithUseContextAndReducerOptions = {
   context: FormWithUseContextAndReducerContext,
   areMergedPropsEqual: (prevState, nextState) => {
-    const areEqual = prevState.value === nextState.value
+    const areEqual = prevState.value === nextState.value && prevState.type === nextState.type
 
     return areEqual
   },
