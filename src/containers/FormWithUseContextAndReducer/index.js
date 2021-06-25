@@ -1,11 +1,16 @@
-import React from 'react'
+import React, { Profiler } from 'react'
 import { Form } from 'reactstrap'
 import { ContextBasicInput } from 'components'
 import { FormWithUseContextAndReducerOptions } from 'context'
 import { connect } from 'resurrection'
+import reportProfile from 'utils/reportProfile'
 
 const FormWithUseContextAndReducer = ({ renderInputs }) => {
-  return <Form>{renderInputs}</Form>
+  return (
+    <Profiler id='FormWithUseContextAndReducer' onRender={reportProfile}>
+      <Form>{renderInputs}</Form>
+    </Profiler>
+  )
 }
 
 const mapStateToProps = ({ form2 }) => ({

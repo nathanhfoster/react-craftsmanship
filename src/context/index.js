@@ -7,13 +7,6 @@ const FormWithUseContextAndReducerOptions = {
   context: FormWithUseContextAndReducerContext,
   areMergedPropsEqual: (prevState, nextState) => {
     const areEqual = prevState.renderInputs.length === nextState.renderInputs.length;
-    console.log(
-      FormWithUseContextAndReducerContext,
-      FormWithUseContextAndReducerContext.__proto__.isPrototypeOf(
-        FormWithUseContextAndReducerContext,
-      ),
-      FormWithUseContextAndReducerContext.$$typeof == 'Symbol(react.context)',
-    );
     return areEqual;
   },
 };

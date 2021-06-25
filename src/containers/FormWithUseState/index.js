@@ -1,10 +1,11 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, Profiler } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Form } from 'reactstrap'
 import { BasicInput, MemoizedComponent } from 'components'
 import { handleOnFormChange } from 'redux/Form/actions'
 import { FormProps } from 'redux/Form/propTypes'
+import reportProfile from 'utils/reportProfile'
 
 const mapStateToProps = ({ Forms: { form1, shouldMemoizeInputFields } }) => ({
   form1,
@@ -19,7 +20,6 @@ const FormWithUseState = ({
   shouldMemoizeInputFields,
   handleOnFormChange,
 }) => {
-  
   const handleOnChange = useCallback(e => handleOnFormChange('form1', e), [])
 
   // Didn't use useMemo because the dependency array would contain all of the components props
@@ -36,10 +36,14 @@ const FormWithUseState = ({
       //   ),
     }
 
-    return shouldMemoizeInputFields ? (
-      <MemoizedComponent Component={BasicInput} {...inputProps} />
-    ) : (
-      <BasicInput {...inputProps} />
+    return (
+      <Profiler id='FormWithUseState' onRender={reportProfile}>
+        {shouldMemoizeInputFields ? (
+          <MemoizedComponent Component={BasicInput} {...inputProps} />
+        ) : (
+          <BasicInput {...inputProps} />
+        )}
+      </Profiler>
     )
   })
 
