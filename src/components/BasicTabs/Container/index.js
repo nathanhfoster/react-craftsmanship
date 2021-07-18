@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react'
-import TabContext from '../Context'
+import React, { useMemo } from 'react';
+import TabContext from '../Context';
 
 export const Container = ({
   id,
@@ -8,7 +8,7 @@ export const Container = ({
   transition,
   mountOnEnter,
   unmountOnExit,
-  children,
+  children
 }) => {
   const tabContext = useMemo(
     () => ({
@@ -17,12 +17,14 @@ export const Container = ({
       activeKey,
       transition,
       mountOnEnter,
-      unmountOnExit,
+      unmountOnExit
     }),
-    [id, onSelect, activeKey, transition, mountOnEnter, unmountOnExit],
-  )
+    [id, onSelect, activeKey, transition, mountOnEnter, unmountOnExit]
+  );
 
-  return <TabContext.Provider value={tabContext}>{children}</TabContext.Provider>
-}
+  return (
+    <TabContext.Provider value={tabContext}>{children}</TabContext.Provider>
+  );
+};
 
-export default Container
+export default Container;

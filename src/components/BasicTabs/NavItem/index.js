@@ -1,7 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const NavItem = ({ children }) => {
-  return <a>{children}</a>
-}
+  return <a>{children}</a>;
+};
 
-export default NavItem
+export default NavItem;

@@ -46,7 +46,7 @@ const reportProfile = (
   baseDuration,
   startTime,
   commitTime,
-  interactions,
+  interactions
 ) => {
   queue.push({
     id,
@@ -55,7 +55,7 @@ const reportProfile = (
     baseDuration,
     startTime,
     commitTime,
-    interactions,
+    interactions
   });
 };
 
@@ -75,7 +75,8 @@ const sendProfileQueue = () => {
     // Time stamp of the difference in time between the current item and the first item
     commitTimeDifferenceFromFirst: q.commitTime - queue[0].commitTime,
     // Time stamp of the difference in time between the current item and the previous item
-    commitTimeDifferenceFromPrevious: i === 0 ? 0 : q.commitTime - queue[i - 1].commitTime,
+    commitTimeDifferenceFromPrevious:
+      i === 0 ? 0 : q.commitTime - queue[i - 1].commitTime
   }));
 
   // Reset the queue

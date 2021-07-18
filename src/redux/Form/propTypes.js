@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
 const FormProps = PropTypes.objectOf(
   PropTypes.oneOfType([
@@ -7,8 +7,8 @@ const FormProps = PropTypes.objectOf(
     PropTypes.bool,
     PropTypes.func,
     PropTypes.object,
-    PropTypes.arrayOf(PropTypes.string),
-  ]),
-)
+    PropTypes.arrayOf(PropTypes.string)
+  ])
+);
 
-export { FormProps }
+export { FormProps };

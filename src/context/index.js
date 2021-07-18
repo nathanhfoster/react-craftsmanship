@@ -6,22 +6,24 @@ const FormWithUseContextAndReducerContext = createContext(null);
 const FormWithUseContextAndReducerOptions = {
   context: FormWithUseContextAndReducerContext,
   areMergedPropsEqual: (prevState, nextState) => {
-    const areEqual = prevState.renderInputs.length === nextState.renderInputs.length;
+    const areEqual =
+      prevState.renderInputs.length === nextState.renderInputs.length;
     return areEqual;
-  },
+  }
 };
 
 const FormInputWithUseContextAndReducerOptions = {
   context: FormWithUseContextAndReducerContext,
   areMergedPropsEqual: (prevState, nextState) => {
-    const areEqual = prevState.value === nextState.value && prevState.type === nextState.type;
+    const areEqual =
+      prevState.value === nextState.value && prevState.type === nextState.type;
 
     return areEqual;
-  },
+  }
 };
 
 export {
   FormWithUseContextAndReducerContext,
   FormWithUseContextAndReducerOptions,
-  FormInputWithUseContextAndReducerOptions,
+  FormInputWithUseContextAndReducerOptions
 };

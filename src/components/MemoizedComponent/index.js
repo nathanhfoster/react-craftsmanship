@@ -1,12 +1,12 @@
-import React, { memo } from 'react'
-import PropTypes from 'prop-types'
+import React, { memo } from 'react';
+import PropTypes from 'prop-types';
 
 const MemoizedComponent = ({ Component, children, ...componentProps }) =>
   children ? (
     <Component {...componentProps}>{children}</Component>
   ) : (
     <Component {...componentProps} />
-  )
+  );
 
 MemoizedComponent.propTypes = {
   Component: PropTypes.oneOfType([
@@ -15,7 +15,7 @@ MemoizedComponent.propTypes = {
     PropTypes.func,
     PropTypes.symbol,
     PropTypes.object,
-    PropTypes.elementType,
+    PropTypes.elementType
   ]),
   children: PropTypes.oneOfType([
     PropTypes.element,
@@ -30,13 +30,13 @@ MemoizedComponent.propTypes = {
     PropTypes.arrayOf(PropTypes.func),
     PropTypes.arrayOf(PropTypes.symbol),
     PropTypes.arrayOf(PropTypes.object),
-    PropTypes.arrayOf(PropTypes.elementType),
-  ]),
-}
+    PropTypes.arrayOf(PropTypes.elementType)
+  ])
+};
 
 MemoizedComponent.defaultProps = {
   Component: <div>Change This Component Prop</div>,
-  children: undefined,
-}
+  children: undefined
+};
 
-export default memo(MemoizedComponent)
+export default memo(MemoizedComponent);

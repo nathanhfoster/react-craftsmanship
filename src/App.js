@@ -5,10 +5,13 @@ import {
   FormWithUseState,
   FormWithUseContextAndReducer,
   ShouldMemoizeComponents,
-  FormWithRedux,
+  FormWithRedux
 } from 'containers';
+import { BasicLink } from 'components';
 
-const ReduxSetNumberOfFields = lazy(() => import('./containers/ReduxSetNumberOfFields'));
+const ReduxSetNumberOfFields = lazy(() =>
+  import('./containers/ReduxSetNumberOfFields')
+);
 
 const App = () => {
   return (
@@ -22,66 +25,58 @@ const App = () => {
         </Col>
         <Col tag='h3' xs={12}>
           Enable the
-          <span className='text-info mx-1'>"Highlight updates when components render"</span>
+          <span className='text-info mx-1'>
+            "Highlight updates when components render"
+          </span>
           option in your
-          <a
+          <BasicLink
             className='ml-1'
             href='https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en'
-            target='_blank'
-            rel='noopener noreferrer'
           >
             React Developer Tools
-          </a>{' '}
+          </BasicLink>{' '}
           to visiualize the rerenders of the two forms and their input fields
         </Col>
         <Col tag='h3' xs={12}>
           Check out the
-          <a
+          <BasicLink
             className='ml-1'
             href='https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd'
-            target='_blank'
-            rel='noopener noreferrer'
           >
             {' '}
             Redux DevTool
-          </a>{' '}
+          </BasicLink>{' '}
           to visiualize the redux store
         </Col>
         <Col tag='h3' xs={12}>
           Check out the
-          <a
+          <BasicLink
             className='ml-1'
             href='https://chrome.google.com/webstore/detail/react-context-devtool/oddhnidmicpefilikhgeagedibnefkcf'
-            target='_blank'
-            rel='noopener noreferrer'
           >
             {' '}
             React Context DevTool
-          </a>{' '}
+          </BasicLink>{' '}
           to visiualize the context store
         </Col>
       </Row>
       <Row tag='h4' className='justify-content-center'>
         Check out the
-        <a
+        <BasicLink
           className='ml-1'
           href='https://github.com/strap8/react-craftsmanship'
-          target='_blank'
-          rel='noopener noreferrer'
         >
           this prototype's source code
-        </a>
+        </BasicLink>
       </Row>
       <Row tag='h4' className='justify-content-center'>
         Check out the
-        <a
+        <BasicLink
           className='ml-1'
           href='https://github.com/strap8/resurrection'
-          target='_blank'
-          rel='noopener noreferrer'
         >
           useContext/useReducer redux clone source code
-        </a>
+        </BasicLink>
       </Row>
       <Row className='justify-content-center'>
         <Col>
@@ -105,18 +100,21 @@ const App = () => {
             <label className='ml-1'>Number of input fields</label>
           </div>
           <div className='text-info'>
-            Notice how the <span className='text-success'>Form with useState</span> struggles with
-            hundreds of fields without memoization
+            Notice how the{' '}
+            <span className='text-success'>Form with useState</span> struggles
+            with hundreds of fields without memoization
           </div>
         </Col>
 
         <Col>
           <ShouldMemoizeComponents />
           <span className='text-info'>
-            Notice how this helps the <span className='text-success'>Form with useState</span> for
-            hundreds of fields but not when there is thousands. It doesn't really effect the{' '}
-            <span className='text-success'>Form with redux</span> because each field is atomic and
-            isolated from one another
+            Notice how this helps the{' '}
+            <span className='text-success'>Form with useState</span> for
+            hundreds of fields but not when there is thousands. It doesn't
+            really effect the{' '}
+            <span className='text-success'>Form with redux</span> because each
+            field is atomic and isolated from one another
           </span>
         </Col>
       </Row>

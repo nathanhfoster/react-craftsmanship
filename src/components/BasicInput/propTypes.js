@@ -1,15 +1,15 @@
-import PropTypes from "prop-types"
-import { optionProps } from "../BasicOption/propTypes"
+import PropTypes from 'prop-types';
+import { optionProps } from '../BasicOption/propTypes';
 
 const InputTypes = [
-  "email",
-  "text",
-  "password",
-  "checkbox",
-  "radio",
-  "file",
-  "select",
-]
+  'email',
+  'text',
+  'password',
+  'checkbox',
+  'radio',
+  'file',
+  'select'
+];
 
 const InputProps = {
   id: PropTypes.string,
@@ -31,9 +31,9 @@ const InputProps = {
   helpText: PropTypes.string,
   multiline: PropTypes.bool,
   row: PropTypes.string,
-  className: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-}
+  className: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
+};
 
-const BasicInputsProps = PropTypes.shape(InputProps)
+const BasicInputsProps = PropTypes.shape(InputProps);
 
-export { InputTypes, InputProps, BasicInputsProps }
+export { InputTypes, InputProps, BasicInputsProps };

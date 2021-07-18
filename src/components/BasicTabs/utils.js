@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 /**
  * Iterates through children that are typically specified as `props.children`,
@@ -9,12 +9,12 @@ import React from 'react'
  *
  */
 const map = (children, func) => {
-  let index = 0
+  let index = 0;
 
   return React.Children.map(children, child =>
-    React.isValidElement ? func(child, index++) : child,
-  )
-}
+    React.isValidElement ? func(child, index++) : child
+  );
+};
 
 /**
  * Iterates through children that are "valid elements".
@@ -23,10 +23,10 @@ const map = (children, func) => {
  * leaf child with the index reflecting the position relative to "valid components".
  */
 const forEach = (children, func) => {
-  let index = 0
+  let index = 0;
   React.Children.forEach(children, child => {
-    if (React.isValidElement) func(child, index++)
-  })
-}
+    if (React.isValidElement) func(child, index++);
+  });
+};
 
-export { map, forEach }
+export { map, forEach };
