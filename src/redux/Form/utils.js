@@ -2,14 +2,10 @@ import { getRandomInt } from '../../utils'
 import { InputTypes } from '../../components/BasicInput/propTypes'
 
 const NUMBER_OF_INPUT_OPTIONS = [
-  25,
-  50,
-  75,
   100,
-  150,
   200,
-  250,
-  350,
+  300,
+  400,
   500,
   1000,
   2000,
@@ -20,13 +16,11 @@ const NUMBER_OF_INPUT_OPTIONS = [
 
 const DEFAULT_NUMBER_OF_INPUT_FIELDS = NUMBER_OF_INPUT_OPTIONS[0]
 
-const DEFAULT_NUMBER_OF_INPUT_OPTIONS = 100
-
 const getFormFieldName = index => `field-${index}`
 
 const getEmptyArrayOfInputs = (size = DEFAULT_NUMBER_OF_INPUT_FIELDS) => new Array(size).fill()
 
-const SELECT_INPUT_OPTIONS = getEmptyArrayOfInputs(DEFAULT_NUMBER_OF_INPUT_OPTIONS).map(
+const SELECT_INPUT_OPTIONS = getEmptyArrayOfInputs(DEFAULT_NUMBER_OF_INPUT_FIELDS).map(
   (field, i) => ({
     name: i,
   }),
