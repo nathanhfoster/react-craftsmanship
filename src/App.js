@@ -60,7 +60,7 @@ const App = () => {
           to visiualize the context store
         </Col>
       </Row>
-      <Row tag='h4' className='justify-content-center'>
+      <Row tag='h4'>
         Check out the
         <BasicLink
           className='ml-1'
@@ -69,7 +69,7 @@ const App = () => {
           this prototype's source code
         </BasicLink>
       </Row>
-      <Row tag='h4' className='justify-content-center'>
+      <Row tag='h4'>
         Check out the
         <BasicLink
           className='ml-1'
