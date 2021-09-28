@@ -4,23 +4,17 @@ import { connect } from 'react-redux';
 import { BasicDropDown } from 'components';
 import { setNumberOfInputFields } from '../../redux/Form/actions';
 import { NUMBER_OF_INPUT_OPTIONS } from '../../redux/Form/utils';
-import { FormWithUseContextAndReducerContext } from 'context';
+import { FormWithUseContextAndReducerDispatchContext } from 'context';
 import { useDispatch } from 'resurrection';
 
 const OPTIONS = NUMBER_OF_INPUT_OPTIONS.map(o => ({ id: o }));
-
-const mapStateToProps = ({ Forms: { numberOfInputFields } }) => ({
-  numberOfInputFields
-});
-
-const mapDispatchToProps = { setNumberOfInputFields };
 
 const ReduxSetNumberOfFields = ({
   numberOfInputFields,
   setNumberOfInputFields
 }) => {
   const FormWithUseContextAndReducerDispatch = useDispatch(
-    FormWithUseContextAndReducerContext
+    FormWithUseContextAndReducerDispatchContext
   );
 
   const handleSetNumberOfInputFields = useCallback(value => {
@@ -36,6 +30,12 @@ const ReduxSetNumberOfFields = ({
     />
   );
 };
+
+const mapStateToProps = ({ Forms: { numberOfInputFields } }) => ({
+  numberOfInputFields
+});
+
+const mapDispatchToProps = { setNumberOfInputFields };
 
 export default connect(
   mapStateToProps,

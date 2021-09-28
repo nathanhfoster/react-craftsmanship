@@ -1,10 +1,18 @@
-import React, { createContext } from 'react';
+import { createContext } from 'react';
+import { DEFAULT_STATE_FORMS } from 'redux/Form/reducer';
 
-const FormWithUseContextAndReducerContext = createContext(null);
+const FormWithUseContextAndReducerStateContext =
+  createContext(DEFAULT_STATE_FORMS);
+FormWithUseContextAndReducerStateContext.displayName =
+  'FormWithUseContextAndReducerStateContext';
+const FormWithUseContextAndReducerDispatchContext = createContext(null);
+FormWithUseContextAndReducerDispatchContext.displayName =
+  'FormWithUseContextAndReducerDispatchContext';
 
 // we implement areMergedPropsEqual to only mount the input fields once to the DOM
 const FormWithUseContextAndReducerOptions = {
-  context: FormWithUseContextAndReducerContext,
+  stateContext: FormWithUseContextAndReducerStateContext,
+  dispatchContext: FormWithUseContextAndReducerDispatchContext,
   areMergedPropsEqual: (prevState, nextState) => {
     const areEqual =
       prevState.renderInputs.length === nextState.renderInputs.length;
@@ -13,7 +21,8 @@ const FormWithUseContextAndReducerOptions = {
 };
 
 const FormInputWithUseContextAndReducerOptions = {
-  context: FormWithUseContextAndReducerContext,
+  stateContext: FormWithUseContextAndReducerStateContext,
+  dispatchContext: FormWithUseContextAndReducerDispatchContext,
   areMergedPropsEqual: (prevState, nextState) => {
     const areEqual =
       prevState.value === nextState.value && prevState.type === nextState.type;
@@ -23,7 +32,8 @@ const FormInputWithUseContextAndReducerOptions = {
 };
 
 export {
-  FormWithUseContextAndReducerContext,
+  FormWithUseContextAndReducerStateContext,
+  FormWithUseContextAndReducerDispatchContext,
   FormWithUseContextAndReducerOptions,
   FormInputWithUseContextAndReducerOptions
 };
